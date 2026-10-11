@@ -1,0 +1,1207 @@
+{
+  "teaser": {
+    "desktop": {
+      "header": "Участвуй в Улыбатле",
+      "headerWideDesktop": "Участвуй в Улыбатле",
+      "link": {
+        "header": "Плати улыбкой — выигрывай крутые призы",
+        "label": "Узнать подробнее",
+        "href": "https://digital.sber.ru/promo/ulibattle?utm_source=site&utm_medium=free&utm_campaign=ulibattle&utm_term=banner",
+        "background": "linear-gradient(150deg, #7CE687 13%, #F3FDE5 90%)"
+      },
+      "background": "linear-gradient(150deg, #DAF9DA 13%, #FAFAFA 90%)",
+      "image": "/common/fhouse/main/images/teasernew/banner_ulibattle.png"
+    },
+    "mobile": {
+      "header": "Участвуй в Улыбатле",
+      "link": {
+        "header": "Плати улыбкой — выигрывай крутые призы",
+        "label": "Узнать подробнее",
+        "href": "https://digital.sber.ru/promo/ulibattle?utm_source=site&utm_medium=free&utm_campaign=ulibattle&utm_term=banner",
+        "background": "linear-gradient(150deg, #7CE687 13%, #F3FDE5 90%)"
+      },
+      "background": "linear-gradient(150deg, #DAF9DA 13%, #FAFAFA 90%)",
+      "image": "/common/fhouse/main/images/teasernew/banner_ulibattle.png"
+    }
+  },
+  "stories": [
+    {
+      "text": "Как скачать приложение",
+      "imgUrl": "/common/fhouse/main/images/story_mass/kak_skachat/preview.jpeg",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "СберБанк Онлайн для любого смартфона",
+          "description": "Купили новый телефон или впервые стали клиентом Сбера? Сейчас расскажем, как установить приложение банка на ваш айфон или андроид",
+          "imgUrl": "/common/fhouse/main/images/story_mass/kak_skachat/stories_app_31.jpg",
+          "isLightTheme": true
+        },
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "",
+          "description": "СберБанк Онлайн для Android можно скачать в каталоге приложений Сбера. А ещё — установить через RuStore, Galaxy Store и AppGallery",
+          "imgUrl": "/common/fhouse/main/images/story_mass/kak_skachat/stories_app_32.jpg",
+          "reachBtn": {
+            "text": "Скачать приложение для Android",
+            "linkUrl": "/ru/person/dist_services/sberbank-online?chips=chips1",
+            "isNewTab": true
+          }
+        },
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "",
+          "description": "Приложение для айфона недоступно в App Store. Но мы умеем устанавливать его сами — зайдите в ближайший офис Сбера с телефоном и мы поможем скачать или обновить приложение, а также зарегистрироваться в нём",
+          "imgUrl": "/common/fhouse/main/images/story_mass/kak_skachat/stories_app_33.jpg",
+          "reachBtn": {
+            "text": "Найти ближайший офис",
+            "linkUrl": "/ru/oib?tab=vsp&nps57#map",
+            "isNewTab": true
+          }
+        },
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "",
+          "description": "Управлять финансами можно и без приложения — с помощью веб-версии СберБанк Онлайн. Сайт онлайн-банка работает в браузере на смартфоне, планшете и ноутбуке",
+          "imgUrl": "/common/fhouse/main/images/story_mass/kak_skachat/stories_app_34.jpg",
+          "reachBtn": {
+            "text": "Открыть СберБанк Онлайн",
+            "linkUrl": "/ru/person/dist_services/inner_sbol",
+            "isNewTab": true
+          }
+        }
+      ]
+    },
+    {
+      "text": "Получите бесплатное обследование",
+      "imgUrl": "/common/fhouse/main/images/story_mass/common/obsled_mini.webp",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Проверьте здоровье бесплатно",
+          "description": "Откройте вклад Пенсионный Максимум и переведите пенсию в Сбер с 1 октября по 31 декабря. Получите бесплатное комплексное обследование в СберЗдоровье: расширенный набор анализов и консультацию врача",
+          "imgUrl": "/common/fhouse/main/images/story_mass/common/obsled_story.webp",
+          "reachBtn": {
+            "text": "Узнать условия",
+            "linkUrl": "/ru/person/contributions/deposits/vklad/akciya_sberzdorivie",
+            "isNewTab": true
+          }
+        }
+      ]
+    },
+    {
+      "text": "Розыгрыш 18,5 млн бонусов",
+      "imgUrl": "/common/fhouse/main/images/story_mass/185/stories_prewiew.webp",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Откройте вклад и участвуйте в розыгрыше к 185-летию Сбера",
+          "description": "С 30 сентября по 31 октября откройте любой вклад и получите шанс выиграть один из 1000 призов по 18 500 бонусов. Бонусы победителям начислим до 12 ноября",
+          "imgUrl": "/common/fhouse/main/images/story_mass/185/stories2.webp",
+          "isLightTheme": true,
+          "reachBtn": {
+            "text": "Открыть вклад",
+            "linkUrl": "/ru/person/contributions/deposits",
+            "isNewTab": true
+          }
+        }
+      ]
+    },
+    {
+      "text": "Переводы и платежи за 0 ₽",
+      "imgUrl": "/common/fhouse/main/images/story_mass/bez_komissii/stories_mini.jpg",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Теперь самое важное без лимитов",
+          "description": "Переводите клиентам Сбера любые суммы и оплачивайте ЖКХ бесплатно. А с Праймом ещё больше возможностей: бесплатные переводы в другие банки до 300 000 ₽ и все платежи без комиссии",
+          "imgUrl": "/common/fhouse/main/images/story_mass/bez_komissii/stories.jpg",
+          "isLightTheme": true
+        }
+      ]
+    },
+    {
+      "text": "Для зарплатных клиентов",
+      "imgUrl": "/common/fhouse/main/images/story_mass/common/185_min.webp",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Разыгрываем 185 млн бонусов среди зарплатных клиентов",
+          "description": "Получайте зарплату в Сбере и участвуйте в розыгрыше — 1000 победителей получат по 185 000 бонусов Спасибо. Подведём итоги до 25 декабря",
+          "imgUrl": "/common/fhouse/main/images/story_mass/common/stories_185.webp",
+          "isLightTheme": true,
+          "reachBtn": {
+            "text": "Узнать больше",
+            "linkUrl": "/ru/person/privilegii-dlya-zarplatnikov#new_zp",
+            "isNewTab": true
+          }
+        }
+      ]
+    },
+    {
+      "text": "Связь за наш счёт",
+      "imgUrl": "/common/fhouse/main/images/story_mass/common/mobile_main.png",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Отменили плату за мобильную связь для зарплатных клиентов",
+          "description": "Получайте зарплату на Сбер и пользуйтесь тарифом СберМобайл «Для профессионалов» со скидкой 100%. Внутри — 300 минут и 50 Гб. А ещё вас ждут улучшенные условия по кредитам и ипотеке, надбавка по вкладам и скидки от партнёров",
+          "imgUrl": "/common/fhouse/main/images/story_mass/common/stories_mobile.jpg",
+          "isLightTheme": true,
+          "reachBtn": {
+            "text": "Подробнее",
+            "linkUrl": "/ru/person/privilegii-dlya-zarplatnikov#new_zp",
+            "isNewTab": true
+          }
+        }
+      ]
+    },
+    {
+      "text": "Монеты к 185-летию Сбера",
+      "imgUrl": "/common/fhouse/main/images/story_mass/common/185_preview0910.webp",
+      "stories": [
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Юбилейные монеты из золота и серебра",
+          "description": "К 185-летию мы выпустили коллекционные монеты из драгоценных металлов. В основе концепции — луч времени, который освещает наш путь, соединяет прошлое, настоящее и будущее",
+          "imgUrl": "/common/fhouse/main/images/story_mass/common/185_1_0910.webp",
+          "reachBtn": {
+            "text": "Посмотреть на монеты",
+            "linkUrl": "https://digital.sber.ru/promo/185/moneta/",
+            "isNewTab": true
+          }
+        },
+        {
+          "skipSlideDuration": 8,
+          "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+          "serviceName": "СберБанк",
+          "heading": "Эксклюзивно в офисах Сбера",
+          "description": "Юбилейные монеты можно приобрести только в офисах Сбера. На странице коллекции можно узнать подробности и выбрать удобный офис",
+          "imgUrl": "/common/fhouse/main/images/story_mass/common/185_2_0910.webp",
+          "reachBtn": {
+            "text": "Выбрать офис",
+            "linkUrl": "/ru/person/investments/values/coins/mon#/page/1/search?text=185%20%D0%A1%D0%B1%D0%B5%D1%80",
+            "isNewTab": true
+          }
+        }
+      ]
+    }
+  ],
+  "moreLinks": [
+    {
+      "href": "/ru/legal",
+      "text": "Корпоративным клиентам"
+    },
+    {
+      "href": "/help/business",
+      "text": "Справочный центр для бизнеса"
+    },
+    {
+      "href": "/ru/fpartners",
+      "text": "Партнёрам"
+    },
+    {
+      "href": "/ru/person/specialbank",
+      "text": "Клиентам с инвалидностью"
+    },
+    {
+      "href": "/ru/person/islamic-banking?tab=vsp",
+      "text": "Исламское финансирование"
+    },
+    {
+      "href": "/ru/person/foreign",
+      "text": "Иностранным клиентам"
+    },
+    {
+      "href": "https://rabota.sber.ru",
+      "text": "Соискателям: Вакансии"
+    },
+    {
+      "href": "https://www.sberbank.com/ru",
+      "text": "Акционерам и инвесторам"
+    },
+    {
+      "href": "https://developers.sber.ru",
+      "text": "Разработчикам"
+    },
+    {
+      "href": "/ru/credit_org",
+      "text": "Финансовым организациям"
+    },
+    {
+      "href": "https://www.sberbank.com/ru/about",
+      "text": "О Банке"
+    }
+  ],
+  "menuLinks": [
+    {
+      "href": "/ru/ecosystem_sber",
+      "text": "Экосистема для жизни"
+    },
+    {
+      "href": "/ru/share/card",
+      "text": "Приведи друга в Сбер"
+    },
+    {
+      "href": "https://partners.sbermarketing.ru/s/ZNLU4sFPZn?statid=699",
+      "text": "Скидки и подарки"
+    },
+    {
+      "href": "/sberprime",
+      "text": "СберПрайм"
+    },
+    {
+      "href": "/ru/person/sberspasibo",
+      "text": "Бонусы Спасибо"
+    },
+    {
+      "href": "/ru/ii-pomoshniki",
+      "text": "ГигаЧат на сайте Сбера"
+    }
+  ],
+  "menu": [
+    {
+      "text": "Экосистема для жизни",
+      "href": "/ru/ecosystem_sber",
+      "children": []
+    },
+    {
+      "text": "Приведи друга в Сбер",
+      "href": "/ru/share/card",
+      "children": []
+    },
+    {
+      "text": "Скидки и подарки",
+      "href": "https://partners.sbermarketing.ru/s/ZNLU4sFPZn?statid=699",
+      "children": []
+    },
+    {
+      "text": "СберПрайм",
+      "href": "/sberprime",
+      "children": []
+    },
+    {
+      "text": "Кредиты",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все кредиты",
+          "href": "/ru/person/credits/money",
+          "children": []
+        },
+        {
+          "text": "Кредит наличными",
+          "href": "/ru/person/credits/money/consumer_unsecured",
+          "children": []
+        },
+        {
+          "text": "Рефинансирование",
+          "href": "/ru/person/credits/money/consumer_refinance",
+          "children": []
+        },
+        {
+          "text": "Автокредит",
+          "href": "/ru/person/credits/money/avtokredit",
+          "children": []
+        },
+        {
+          "text": "Автокредит в дилерском центре",
+          "href": "/ru/person/credits/money/avtokredit/dc",
+          "children": []
+        },
+        {
+          "text": "Кредит на образование",
+          "href": "/ru/person/credits/money/credit_na_obrazovanie",
+          "children": []
+        },
+        {
+          "text": "Кредит под залог недвижимости",
+          "href": "/ru/person/credits/money/credit_zalog",
+          "children": []
+        },
+        {
+          "text": "Покупки в рассрочку",
+          "href": "/ru/person/credits/money/pos",
+          "children": []
+        },
+        {
+          "text": "Кредитный калькулятор",
+          "href": "/ru/person/credits/money/kreditnyj_kalkulyator",
+          "children": []
+        },
+        {
+          "text": "Вопросы о кредитах",
+          "href": "/ru/person/help/consumer_faq",
+          "children": []
+        },
+        {
+          "text": "Программы поддержки заёмщиков",
+          "href": "/ru/person/credits/pkp",
+          "children": []
+        },
+        {
+          "text": "Кредитный потенциал",
+          "href": "/ru/person/credits/money/credit_potential",
+          "children": []
+        },
+        {
+          "text": "Кредитная история",
+          "href": "/ru/credit_history",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник по кредитам",
+          "href": "/ru/person/credits/money#ai_credit",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Ипотека",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все ипотечные кредиты",
+          "href": "/ru/person/credits/homenew",
+          "children": []
+        },
+        {
+          "text": "Ипотека на вторичное жильё",
+          "href": "/ru/person/credits/home/buying_complete_house",
+          "children": []
+        },
+        {
+          "text": "Ипотека на новостройки",
+          "href": "/ru/person/credits/home/buying_project",
+          "children": []
+        },
+        {
+          "text": "Кредит под залог недвижимости",
+          "href": "/ru/person/credits/money/credit_zalog",
+          "children": []
+        },
+        {
+          "text": "Ипотека для IT",
+          "href": "https://domclick.ru/ipoteka/programs/it-workers?utm_source=sberbank&utm_medium=referral&utm_campaign=homenew_topline",
+          "children": []
+        },
+        {
+          "text": "Вопросы по ипотеке",
+          "href": "https://blog.domclick.ru/voprosy-i-otvety",
+          "children": []
+        },
+        {
+          "text": "Личный кабинет Домклик",
+          "href": "https://domclick.ru/ipoteka?openAuth=true&utm_source=sberbank&utm_medium=referral&utm_campaign=homenew",
+          "children": []
+        },
+        {
+          "text": "Найти квартиру",
+          "href": "https://domclick.ru/search/on-map?deal_type=sale&category=living&offer_type=flat&offer_type=layout&with_domclick_offers=1&sw=55.502734%2C36.609888&ne=55.898251%2C38.587428&offset=0&utm_source=sberbank&utm_medium=referral&utm_campaign=homenew",
+          "children": []
+        },
+        {
+          "text": "Продать недвижимость",
+          "href": "https://promo.domclick.ru/razmestit-obyavlenie-o-prodazhe-nedvijimosty/?utm_source=sberbank&utm_medium=referral&utm_campaign=homenew",
+          "children": []
+        },
+        {
+          "text": "Ипотечные каникулы",
+          "href": "/ru/person/credits/home/ipotechnye_kanikuly",
+          "children": []
+        },
+        {
+          "text": "Ипотечный калькулятор",
+          "href": "/ru/person/credits/home/ipotechniy-kalkulyator",
+          "children": []
+        },
+        {
+          "text": "Договор задатка онлайн",
+          "href": "/ru/person?segment=pens",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Карты",
+      "href": "#",
+      "children": [
+        {
+          "text": "Дебетовые карты",
+          "href": "/ru/person/bank_cards/debit",
+          "children": []
+        },
+        {
+          "text": "Детская СберКарта",
+          "href": "/ru/person/bank_cards/debit/sberkarta_kids",
+          "children": []
+        },
+        {
+          "text": "Кредитные карты",
+          "href": "/ru/person/bank_cards/credit_cards",
+          "children": []
+        },
+        {
+          "text": "Платёжный счёт",
+          "href": "/ru/person/bank_cards/debit/platezh",
+          "children": []
+        },
+        {
+          "text": "Платёжный стикер",
+          "href": "/ru/person/bank_cards/debit/sberkarta/pay_sticker",
+          "children": []
+        },
+        {
+          "text": "Конструктор дизайна детской СберКарты",
+          "href": "/ru/person/bank_cards/debit/sberkarta_kids/design_konstructor",
+          "children": []
+        },
+        {
+          "text": "Бесплатная доставка карт",
+          "href": "/ru/person/bank_cards/dostavka",
+          "children": []
+        },
+        {
+          "text": "Оплата с нескольких счетов",
+          "href": "/ru/person/bank_cards/debit/services/composite_payments",
+          "children": []
+        },
+        {
+          "text": "Куда привязаны ваши счета и карты",
+          "href": "/ru/person/bank_cards/debit/services/subscriptions",
+          "children": []
+        },
+        {
+          "text": "Привилегии для зарплатных клиентов",
+          "href": "/ru/person/privilegii-dlya-zarplatnikov",
+          "children": []
+        },
+        {
+          "text": "Как выгодно пользоваться СберКартой",
+          "href": "/ru/person/blog/sbercard_sovety",
+          "children": []
+        },
+        {
+          "text": "Лимиты на снятие наличных",
+          "href": "/ru/person/help/debet_cards_faq/limit-na-snyatie",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник по дебетовым картам",
+          "href": "/ru/person/help/debet_cards_faq",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник по кредитным картам",
+          "href": "/ru/person/help/ccards_faq",
+          "children": []
+        },
+        {
+          "text": "Полезные статьи о картах",
+          "href": "/ru/person/blog/pro-karty",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Накопления",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все вклады и счета",
+          "href": "/ru/person/contributions/deposits",
+          "children": []
+        },
+        {
+          "text": "СберВклад",
+          "href": "/ru/person/contributions/deposits/vklad",
+          "children": []
+        },
+        {
+          "text": "Накопительный счёт",
+          "href": "/ru/person/contributions/deposits/nakopi",
+          "children": []
+        },
+        {
+          "text": "Вклад Лучший %",
+          "href": "/ru/person/contributions/deposits/vklad/vklad_luchshiy_procent",
+          "children": []
+        },
+        {
+          "text": "Вклад Ключевой",
+          "href": "/ru/person/contributions/deposits/vklad_kluchevoy",
+          "children": []
+        },
+        {
+          "text": "Вклад с ПДС",
+          "href": "/ru/person/contributions/deposits/zabota_o_budushchem",
+          "children": []
+        },
+        {
+          "text": "Вклад СберKids+",
+          "href": "/ru/person/contributions/deposits/vklad_sberkids",
+          "children": []
+        },
+        {
+          "text": "Счета в драгоценных металлах",
+          "href": "/ru/person/investments/values/omsc",
+          "children": []
+        },
+        {
+          "text": "Калькулятор вклада",
+          "href": "/ru/person/contributions/deposits/kalkulyator_vkladov",
+          "children": []
+        },
+        {
+          "text": "Вопросы о вкладах",
+          "href": "/ru/person/help/contributions_faq",
+          "children": []
+        },
+        {
+          "text": "Как платить налог по вкладам",
+          "href": "/ru/person/blog/kak-platit-nalog-s-protsentnykh-dokhodov-v-2025-godu",
+          "children": []
+        },
+        {
+          "text": "Уведомления об операциях по вкладам",
+          "href": "/ru/person/dist_services/inner_mbank",
+          "children": []
+        },
+        {
+          "text": "Компенсации по вкладам",
+          "href": "/ru/person/contributions/compensation",
+          "children": []
+        },
+        {
+          "text": "Выплаты АСВ",
+          "href": "/ru/person/contributions/payment_compens",
+          "children": []
+        },
+        {
+          "text": "Аренда сейфов",
+          "href": "/ru/person/additional/rent_of_safes",
+          "children": []
+        },
+        {
+          "text": "Номинальный счёт",
+          "href": "/ru/person/contributions/accounts/nomschet",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник по вкладам",
+          "href": "/ru/person/contributions/deposits#ai_vklad",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Инвестиции",
+      "href": "#",
+      "children": [
+        {
+          "text": "СберИнвестиции",
+          "href": "/ru/person/investments",
+          "children": []
+        },
+        {
+          "text": "Брокерское обслуживание",
+          "href": "/ru/person/investments/broker_service",
+          "children": []
+        },
+        {
+          "text": "ИИС",
+          "href": "/ru/person/investments/iis",
+          "children": []
+        },
+        {
+          "text": "ИнвестКопилка",
+          "href": "/ru/person/investments/broker_service/investbox",
+          "children": []
+        },
+        {
+          "text": "Драгоценные металлы",
+          "href": "/ru/person/investments/values",
+          "children": []
+        },
+        {
+          "text": "Накопления, пенсия и страхование",
+          "href": "/ru/person/investments/savings",
+          "children": []
+        },
+        {
+          "text": "Паевые инвестиционные фонды",
+          "href": "/ru/person/investments/pifs",
+          "children": []
+        },
+        {
+          "text": "Фонды недвижимости",
+          "href": "https://www.sberbank.com/ru/person/investments/zpifs",
+          "children": []
+        },
+        {
+          "text": "Цифровые финансовые активы",
+          "href": "/ru/person/investments/tsifrovyye-finansovyye-aktivy",
+          "children": []
+        },
+        {
+          "text": "Инвестиции с 14 лет",
+          "href": "/ru/person/investments/broker_service/investitsii-s-14-let",
+          "children": []
+        },
+        {
+          "text": "Обучение",
+          "href": "/ru/person/investments/edu",
+          "children": []
+        },
+        {
+          "text": "Каталог монет",
+          "href": "/ru/person/mon",
+          "children": []
+        },
+        {
+          "text": "Все инвестиционные продукты",
+          "href": "/ru/person/investments/catalog",
+          "children": []
+        },
+        {
+          "text": "Приложения для инвестиций",
+          "href": "/ru/person/investments/invest_apps",
+          "children": []
+        },
+        {
+          "text": "Клуб акционеров",
+          "href": "https://www.sberbank.com/club",
+          "children": []
+        },
+        {
+          "text": "Личный кабинет инвестора",
+          "href": "https://online.sberbank.ru/CSAFront/index.do#/service?srvUrl=/investor/market&from=website_mainmenu",
+          "children": []
+        },
+        {
+          "text": "Документы и условия",
+          "href": "/ru/person/investments/doc",
+          "children": []
+        },
+        {
+          "text": "Вопросы и ответы",
+          "href": "/ru/person/investments/voprosy-i-otvety-po-investitsiyam",
+          "children": []
+        },
+        {
+          "text": "Сервисы для инвесторов",
+          "href": "/ru/person/investments/investor_services",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Оплата без карты",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все способы оплаты",
+          "href": "/ru/person/payments/sposoby-oplaty",
+          "children": []
+        },
+        {
+          "text": "Участвуйте в Улыбатле",
+          "href": "/ru/person/payments/sberpay/oplata-ulybkoi#ulibattle_banner",
+          "children": []
+        },
+        {
+          "text": "Оплата часами",
+          "href": "/ru/person/payments/watch",
+          "children": []
+        },
+        {
+          "text": "Вжух смартфоном",
+          "href": "/ru/person/payments/vzhuh",
+          "children": []
+        },
+        {
+          "text": "Улыбкой",
+          "href": "/ru/person/payments/sberpay/oplata-ulybkoi",
+          "children": []
+        },
+        {
+          "text": "Андроидом по NFC",
+          "href": "/ru/person/payments/sberpay/nfc",
+          "children": []
+        },
+        {
+          "text": "По QR-коду",
+          "href": "/ru/person/payments/sberpay/qr",
+          "children": []
+        },
+        {
+          "text": "Онлайн",
+          "href": "/ru/person/payments/sberpay/online_sberpay",
+          "children": []
+        },
+        {
+          "text": "Частями",
+          "href": "/ru/person/credits/money/oplata_chastiami",
+          "children": []
+        },
+        {
+          "text": "По QR за границей",
+          "href": "/ru/person/payments/sberpay/qr_foreign",
+          "children": []
+        },
+        {
+          "text": "Кольцом Сбер",
+          "href": "/ru/person/payments/sberpay/oplata_kolcom",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Переводы и платежи",
+      "href": "#",
+      "children": [
+        {
+          "text": "Переводы по России",
+          "href": "/ru/person/remittance",
+          "children": []
+        },
+        {
+          "text": "Переводы за рубеж",
+          "href": "/ru/person/remittance_foreign",
+          "children": []
+        },
+        {
+          "text": "Переводы между своими счетами",
+          "href": "/ru/person/remittance/30_mln",
+          "children": []
+        },
+        {
+          "text": "Автоперевод",
+          "href": "/ru/person/remittance/autopayment",
+          "children": []
+        },
+        {
+          "text": "Подарочные сертификаты",
+          "href": "/ru/person/remittance/gifts",
+          "children": []
+        },
+        {
+          "text": "Курсы валют",
+          "href": "/ru/quotes/currencies",
+          "children": []
+        },
+        {
+          "text": "Платежи",
+          "href": "/ru/person/payments",
+          "children": []
+        },
+        {
+          "text": "Автоплатёж",
+          "href": "/ru/person/payments/autopayment",
+          "children": []
+        },
+        {
+          "text": "Банковская карта в стоп-листе",
+          "href": "/ru/person/payments/stop_list",
+          "children": []
+        },
+        {
+          "text": "Аккредитивы и эскроу",
+          "href": "/ru/person/payments/special_acc",
+          "children": []
+        },
+        {
+          "text": "Цифровой рубль",
+          "href": "/ru/person/payments/digital_ruble",
+          "children": []
+        },
+        {
+          "text": "Подписки на переводы и платежи",
+          "href": "/ru/person/remittance/beznal_cc_rus?tab=subscriptions",
+          "children": []
+        },
+        {
+          "text": "Персональный лимит",
+          "href": "/ru/person/payments/personalniy-limit",
+          "children": []
+        },
+        {
+          "text": "Вопросы о переводах",
+          "href": "/ru/person/help/transfer_faq",
+          "children": []
+        },
+        {
+          "text": " СберЧаевые",
+          "href": "/ru/s_m_business/nbs/sbertips",
+          "children": []
+        },
+        {
+          "text": "Вопросы о платежах",
+          "href": "/ru/person/help/payments_faq",
+          "children": []
+        },
+        {
+          "text": "Оплата ЖКХ для пенсионеров и льготников",
+          "href": "/ru/person/payments/zhkh_bez_komissii",
+          "children": []
+        },
+        {
+          "text": "Вопросы об автоплатеже за ЖКХ",
+          "href": "/ru/person/help/autopayments_faq/2062",
+          "children": []
+        },
+        {
+          "text": "Оплата по QR через СБП",
+          "href": "/ru/person/payments/qr_spb",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник по платежам",
+          "href": "/ru/person/payments#ai",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Премиум",
+      "href": "#",
+      "children": [
+        {
+          "text": "Премиальное обслуживание",
+          "href": "/ru/person/premium",
+          "children": []
+        },
+        {
+          "text": "СберПремьер",
+          "href": "/ru/person/sb_premier_new",
+          "children": []
+        },
+        {
+          "text": "СберПервый",
+          "href": "/ru/person/new_sb1",
+          "children": []
+        },
+        {
+          "text": "Статус Sber Private Banking",
+          "href": "https://sberpb.ru",
+          "children": []
+        },
+        {
+          "text": "Бизнес-залы",
+          "href": "/ru/person/premium/business_zaly",
+          "children": []
+        },
+        {
+          "text": "Привилегии на выбор",
+          "href": "/ru/person/premium/privilegii",
+          "children": []
+        },
+        {
+          "text": "Вклад Премиум",
+          "href": "/ru/person/premium/premium_vklad",
+          "children": []
+        },
+        {
+          "text": "Накопительный счёт Премиум",
+          "href": "/ru/person/premium/premium_ns",
+          "children": []
+        },
+        {
+          "text": "Дебетовые карты Премиум",
+          "href": "/ru/person/bank_cards/debit_premium",
+          "children": []
+        },
+        {
+          "text": "Кредитные карты Премиум",
+          "href": "/ru/person/bank_cards/credit_cards_premium",
+          "children": []
+        },
+        {
+          "text": "Делитесь привилегиями",
+          "href": "/ru/person/semeinyi-bank/privilegii_vmeste",
+          "children": []
+        },
+        {
+          "text": "Страхование Премиум",
+          "href": "/ru/person/premium/strahovaniye",
+          "children": []
+        },
+        {
+          "text": "Карта СберПервый × Аэрофлот",
+          "href": "/ru/person/bank_cards/debit/premium_aeroflot",
+          "children": []
+        },
+        {
+          "text": "Бизнес-зал в Шереметьево",
+          "href": "/ru/person/zal-v-sheremetevo",
+          "children": []
+        },
+        {
+          "text": "Привилегии в Кофемании",
+          "href": "/ru/person/new_sb1/coffeemania",
+          "children": []
+        },
+        {
+          "text": "Офисы СберПремьера",
+          "href": "/ru/oib?tab=vsp&segment=mvs",
+          "children": []
+        },
+        {
+          "text": "Офисы СберПервого",
+          "href": "/ru/person/premium/sb1_oib",
+          "children": []
+        },
+        {
+          "text": "ИИ-помощник",
+          "href": "/ru/person/ask_gigachat_premium",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Зарплатным клиентам",
+      "href": "#",
+      "children": [
+        {
+          "text": "Привилегии для зарплатных клиентов",
+          "href": "/ru/person/privilegii-dlya-zarplatnikov",
+          "children": []
+        },
+        {
+          "text": "«Как зарплатный» без смены банка",
+          "href": "/ru/person/personalnyi-zarplatnyi-proekt",
+          "children": []
+        },
+        {
+          "text": "СберПрайм Зарплатный для новых клиентов",
+          "href": "/ru/person/privilegii-dlya-zarplatnikov/sberprime_zarplatnyi",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Бонусы Спасибо",
+      "href": "/ru/person/sberspasibo",
+      "children": []
+    },
+    {
+      "text": "Поддержка и сервисы",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все онлайн-сервисы",
+          "href": "/ru/person/dist_services",
+          "children": []
+        },
+        {
+          "text": "Контакты",
+          "href": "/ru/person/call_center",
+          "children": []
+        },
+        {
+          "text": "Вопросы и ответы",
+          "href": "/ru/person/help",
+          "children": []
+        },
+        {
+          "text": "Аресты и взыскания",
+          "href": "/ru/person/help/seizure",
+          "children": []
+        },
+        {
+          "text": "Выписки и справки",
+          "href": "/ru/person/help/statements_inquiry_faq",
+          "children": []
+        },
+        {
+          "text": "Уведомления об операциях",
+          "href": "/ru/person/dist_services/inner_mbank",
+          "children": []
+        },
+        {
+          "text": "Сбер ID",
+          "href": "/ru/person/dist_services/sberid",
+          "children": []
+        },
+        {
+          "text": "Детский Сбер ID",
+          "href": "/ru/person/dist_services/sberid_kids",
+          "children": []
+        },
+        {
+          "text": "Безопасность",
+          "href": "/ru/person/cybersecurity",
+          "children": []
+        },
+        {
+          "text": "Биометрия",
+          "href": "/ru/person/dist_services/bio",
+          "children": []
+        },
+        {
+          "text": "Заказ наличных",
+          "href": "/ru/oib/cash_order",
+          "children": []
+        },
+        {
+          "text": "Служба Омбудсмена",
+          "href": "/ru/person/ombudsman/about",
+          "children": []
+        },
+        {
+          "text": "Госуслуги",
+          "href": "/ru/person/dist_services/gosuslugi",
+          "children": []
+        },
+        {
+          "text": "Cертификаты НУЦ Минцифры России",
+          "href": "/ru/certificates",
+          "children": []
+        },
+        {
+          "text": "Библиотека кибербезопасности Кибрарий",
+          "href": "/ru/person/kibrary?utm_source=cpc&utm_medium=banner&utm_campaign=kibrary",
+          "children": []
+        },
+        {
+          "text": "Задать вопрос ИИ-помощнику",
+          "href": "/ru/ii-pomoshniki",
+          "children": []
+        },
+        {
+          "text": "Блог",
+          "href": "/ru/person/blog",
+          "children": []
+        },
+        {
+          "text": "Наследство",
+          "href": "/ru/person/help/inheritance_faq",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Приложения СберБанка",
+      "href": "#",
+      "children": [
+        {
+          "text": "СберБанк Онлайн",
+          "href": "/ru/person/dist_services/sberbank-online",
+          "children": []
+        },
+        {
+          "text": "СберKids",
+          "href": "/ru/person/bank_cards/debit/sberkarta_kids/sberkids",
+          "children": []
+        },
+        {
+          "text": "СберИнвестиции",
+          "href": "/ru/person/investments/sberinvesticii",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Страхование",
+      "href": "#",
+      "children": [
+        {
+          "text": "Все страховые программы",
+          "href": "/ru/person/bank_insure/insuranceprogram?erid%3A2RanykS2tWk=",
+          "children": []
+        },
+        {
+          "text": "Вопросы о страховании",
+          "href": "/ru/person/bank_insure/insuranceprogram/questions",
+          "children": []
+        },
+        {
+          "text": "Что делать при страховом случае",
+          "href": "/ru/person/bank_insure/insuranceprogram/questions/12022",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Курсы валют и металлов",
+      "href": "#",
+      "children": [
+        {
+          "text": "Курсы валют",
+          "href": "/ru/quotes/currencies",
+          "children": []
+        },
+        {
+          "text": "Курсы металлов",
+          "href": "/ru/person/investments/values/omsc",
+          "children": []
+        },
+        {
+          "text": "Курсы слитков",
+          "href": "/ru/person/metall",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Офисы и банкоматы",
+      "href": "#",
+      "children": [
+        {
+          "text": "Офисы",
+          "href": "/ru/oib?tab=vsp",
+          "children": []
+        },
+        {
+          "text": "Банкоматы",
+          "href": "/ru/oib_atm?tab=atm",
+          "children": []
+        },
+        {
+          "text": "Обмен валюты",
+          "href": "/ru/quotes/currencies",
+          "children": []
+        },
+        {
+          "text": "Заказ наличных",
+          "href": "/ru/oib/cash_order",
+          "children": []
+        },
+        {
+          "text": "Реквизиты",
+          "href": "/ru/about/today/requisites",
+          "children": []
+        },
+        {
+          "text": "Офисы СберПервого",
+          "href": "/ru/person/premium/sb1_oib",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "ГигаЧат на сайте Сбера",
+      "href": "/ru/ii-pomoshniki",
+      "children": []
+    }
+  ]
+}
