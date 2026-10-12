@@ -14,6 +14,7 @@
 /coverage
 /references/
 /scripts/
+/verification/
 
 # next.js
 /.next/

@@ -1203,5 +1203,1094 @@
       "href": "/ru/ii-pomoshniki",
       "children": []
     }
-  ]
+  ],
+  "novelties": {
+    "header": "Что нового в Сбере",
+    "headerMobile": "Что нового",
+    "blocks": [
+      {
+        "description": "Что ещё умеет Сбер — узнайте об экосистеме для жизни",
+        "image": "/common/fhouse/person/img/what_new/ecosystem/ecosystem.webp",
+        "link": "/ru/ecosystem_sber"
+      },
+      {
+        "description": "Сберу — 185 лет",
+        "image": "/common/fhouse/person/img/what_new/life_sbol/plit_4_185.png",
+        "link": "/promo/185/?utm_source=site_sberbank_stories&utm_medium=free&utm_campaign=185_sber"
+      },
+      {
+        "description": "Создайте свой дизайн детской СберКарты бесплатно",
+        "image": "/common/fhouse/person/img/what_new/design_konstructor/new_small.png",
+        "link": "/ru/person/bank_cards/debit/sberkarta_kids/design_konstructor"
+      },
+      {
+        "description": "Получайте бонусы Спасибо за рекомендацию Сбера",
+        "image": "/common/fhouse/person/img/what_new/bonusy/bonusy.jpg",
+        "link": "/ru/share/card"
+      },
+      {
+        "description": "ИИ-помощник на сайте: ГигаЧат поможет выбрать вклад или карту",
+        "image": "/common/fhouse/person/img/what_new/gigachat/gigachat_2.webp",
+        "link": "/atm",
+        "stories": {
+          "id": "gigachat",
+          "desktop": [
+            {
+              "skipSlideDuration": 8,
+              "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+              "serviceName": "СберБанк",
+              "heading": "ГигаЧат — ваш гид по Сберу",
+              "description": "На сайте банка поселился ИИ-помощник. Он переводит условия и тарифы с банковского языка на человеческийский, помогает выбрать подходящую карту или вклад",
+              "imgUrl": "/common/fhouse/main/images/story_mass/common/gg-stories-1.jpeg",
+              "isLightTheme": true,
+              "reachBtn": {
+                "text": "Выбрать ИИ-помощника",
+                "linkUrl": "/ru/ii-pomoshniki",
+                "isNewTab": true,
+                "isLightTheme": true
+              }
+            },
+            {
+              "skipSlideDuration": 8,
+              "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+              "serviceName": "СберБанк",
+              "heading": "",
+              "description": "Мы обучили помощника под разные задачи — ищите чат с Гигой на страницах сайта или выберите ИИ-помощника на нужную тему в каталоге",
+              "imgUrl": "/common/fhouse/main/images/story_mass/common/gg-stories-2.jpeg",
+              "isLightTheme": true,
+              "reachBtn": {
+                "text": "Открыть каталог",
+                "linkUrl": "/ru/ii-pomoshniki",
+                "isNewTab": true
+              }
+            }
+          ],
+          "mobile": [
+            {
+              "skipSlideDuration": 8,
+              "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+              "serviceName": "СберБанк",
+              "heading": "ГигаЧат — ваш гид по Сберу",
+              "description": "На сайте банка поселился ИИ-помощник. Он переводит условия и тарифы с банковского языка на человеческий, помогает выбрать подходящую карту или вклад",
+              "imgUrl": "/common/fhouse/main/images/story_mass/common/gg-stories-1.jpeg",
+              "isLightTheme": true,
+              "reachBtn": {
+                "text": "Выбрать ИИ-помощника",
+                "linkUrl": "/ru/ii-pomoshniki",
+                "isNewTab": true,
+                "isLightTheme": true
+              }
+            },
+            {
+              "skipSlideDuration": 8,
+              "serviceLogoUrl": "/common/img/uploaded/_new_site/person/main_page_pilot/img/bank-logo-2x.png",
+              "serviceName": "СберБанк",
+              "heading": "",
+              "description": "Мы обучили помощника под разные задачи — ищите чат с Гигой на страницах сайта или выберите ИИ-помощника на нужную тему в каталоге",
+              "imgUrl": "/common/fhouse/main/images/story_mass/common/gg-stories-2.jpeg",
+              "isLightTheme": true,
+              "reachBtn": {
+                "text": "Открыть каталог",
+                "linkUrl": "/ru/ii-pomoshniki",
+                "isNewTab": true
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "launcher": {
+    "title": "Всё самое важное — в быстром доступе",
+    "cards": [
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/zarplata.jpeg",
+        "text": "Зарплата с выгодой",
+        "linkUrl": "/ru/person/promo/privilegii-dlya-zarplatnikov"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/kredit.jpeg",
+        "text": "Кредит наличными",
+        "linkUrl": "/ru/person/credits/money/consumer_unsecured"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/prime1.jpeg",
+        "text": "СберПрайм",
+        "linkUrl": "https://www.sberbank.com/sberprime/home?erid=2RanymRUXYC"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/bespl_kredit.jpeg",
+        "text": "Бесплатная кредитка",
+        "linkUrl": "/ru/person/bank_cards/credit_cards/credit_sberkarta"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/vklad.jpeg",
+        "text": "Вклад",
+        "linkUrl": "/ru/person/contributions/deposits/vklad"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/karta_cashback.jpeg",
+        "text": "Карта с кешбэком",
+        "linkUrl": "/ru/person/bank_cards/debit/sberkarta"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/credit_na_obrazovanie.webp",
+        "text": "Кредит на обучение",
+        "linkUrl": "/ru/person/credits/money/credit_na_obrazovanie"
+      },
+      {
+        "imageUrl": "/common/fhouse/main/images/mass_products/new2/invest.jpeg",
+        "text": "СберИнвестиции",
+        "linkUrl": "/ru/person/investments"
+      }
+    ]
+  },
+  "quickActions": {
+    "depositPreviewImgUrl": "/common/fhouse/main/images/quick/dep-calc-bg-all-2x.jpeg",
+    "sbolBgImgUrl": "/common/fhouse/main/images/quick/sbol-bg-all-2x.jpeg",
+    "metalBgImgUrl": "/common/fhouse/main/images/quick/all-currencies-bg.png",
+    "calcBtn": {
+      "label": "Калькулятор процентов",
+      "depositPreviewRevenueLabel": "К 31 июля накопите",
+      "depositPreviewRevenueValue": "1 109 726 ₽",
+      "depositPreviewDurationLabel": "Копите",
+      "depositPreviewDurationValue": "6 мес.",
+      "depositPreviewProfitLabel": "Заработали",
+      "depositPreviewProfitValue": "54 526 ₽"
+    },
+    "sbolBtn": {
+      "label": "СберБанк Онлайн",
+      "sbolFrontImgUrl": "/common/fhouse/main/images/quick/phone_premium1.webp"
+    },
+    "officeBtn": {
+      "label": "Офисы и банкоматы",
+      "linkUrl": "/ru/oib?tab=vsp",
+      "isNewTab": true,
+      "firstImgUrl": "/common/fhouse/main/images/quick/office-bg-one-2x.jpeg",
+      "secondImgUrl": "/common/fhouse/main/images/quick/office-bg-two-2x.jpeg"
+    },
+    "ratesBtn": {
+      "label": "Курсы валют",
+      "linkUrl": "/ru/quotes/currencies",
+      "isNewTab": true,
+      "officeId": "38"
+    },
+    "sbolApps": {
+      "title": "СберБанк Онлайн",
+      "description": "Рассказываем, как установить мобильное приложение на свой телефон",
+      "button": "Узнать больше",
+      "buttonLink": "/ru/person/help/dist_services_inner_apps",
+      "tabs": [
+        {
+          "text": "Android",
+          "value": "android",
+          "selected": true
+        },
+        {
+          "text": "iOS",
+          "value": "ios",
+          "selected": false
+        }
+      ],
+      "android": {
+        "info": "Актуальная версия приложения — 17.13.0. Обратите внимание, что версии 16.8 и ниже больше не поддерживаются банком. Проверьте версию на экране входа или в настройках вашего Профиля в приложении",
+        "subtitle": "Скачайте приложение",
+        "items": [
+          {
+            "icon": "/common/fhouse/main/images/questions/rustore.png",
+            "titleMobileAndTablet": "В офисе",
+            "titleDesktop": "RuStore",
+            "descriptionMobileAndTablet": "Установите приложение в офисе с менеджером банка",
+            "descriptionDesktop": "Для всех телефонов",
+            "linkText": "Как установить",
+            "linkUrl": "/ru/person/dist_services/sberbank-online-android/rustore",
+            "qr": "/common/fhouse/main/images/questions/qr.png"
+          },
+          {
+            "icon": "/common/fhouse/main/images/questions/appgallery.png",
+            "titleMobileAndTablet": "AppGallery",
+            "titleDesktop": "AppGallery",
+            "descriptionMobileAndTablet": "Для телефонов Huawei",
+            "descriptionDesktop": "Для телефонов Huawei",
+            "linkText": "Как установить",
+            "linkUrl": "/ru/person/dist_services/sberbank-online-android/appgallery"
+          },
+          {
+            "icon": "/common/fhouse/main/images/questions/galaxystore.svg",
+            "titleMobileAndTablet": "Galaxy Store",
+            "titleDesktop": "Galaxy Store",
+            "descriptionMobileAndTablet": "Для телефонов Samsung",
+            "descriptionDesktop": "Для телефонов Samsung",
+            "linkText": "Как установить",
+            "linkUrl": "/ru/person/dist_services/sberbank-online-android/galaxy-store"
+          },
+          {
+            "icon": "/common/fhouse/main/images/questions/sbericon.svg",
+            "titleMobileAndTablet": "На сайте",
+            "titleDesktop": "На сайте",
+            "descriptionMobileAndTablet": "Установочный файл для всех телефонов",
+            "descriptionDesktop": "Установочный файл для всех телефонов",
+            "linkText": "Как установить",
+            "linkUrl": "/ru/person/dist_services/sberbank-online-android/sait-sber"
+          }
+        ]
+      },
+      "ios": {
+        "info": "Отключите автоматическое удаление приложений в настройках телефона: выберите раздел &laquo;App Store&raquo; &rarr; отключите &laquo;Сгружать неиспользуемые&raquo;",
+        "infoTitle": "Как сохранить доступ к приложению?",
+        "subtitle": "Как установить приложение и зарегистрироваться",
+        "description": "Установить приложение самостоятельно пока не получится, но есть несколько вариантов, что можно сделать:",
+        "items": [
+          {
+            "icon": "/common/fhouse/main/images/questions/office.png",
+            "titleMobileAndTablet": "Приходите в ближайший офис Сбера",
+            "titleDesktop": "Приходите в ближайший офис Сбера",
+            "descriptionMobileAndTablet": "В офисе сотрудники помогут установить приложение и зарегистрироваться в нём",
+            "descriptionDesktop": "В офисе сотрудники помогут установить приложение и зарегистрироваться в нём",
+            "linkText": "Найти офис",
+            "linkUrl": "/ru/oib?tab=vsp&nps57#map"
+          },
+          {
+            "icon": "/common/fhouse/main/images/questions/sbericon.svg",
+            "titleMobileAndTablet": "Пользуйтесь веб-версией СберБанк Онлайн",
+            "titleDesktop": "Пользуйтесь веб-версией СберБанк Онлайн",
+            "descriptionMobileAndTablet": "Если пока нет возможности скачать приложение, используйте веб-версию — это просто и удобно",
+            "descriptionDesktop": "Если пока нет возможности скачать приложение, используйте веб-версию — это просто и удобно",
+            "linkText": "Войти в веб-версию",
+            "linkUrl": "https://www.sberbank.com/sms/sl_sbol?web_link=https://online.sberbank.ru/"
+          }
+        ]
+      }
+    },
+    "calculators": {
+      "desktopBannerImgUrl": "",
+      "mobileBannerImgUrl": "",
+      "header": "Поможем рассчитать",
+      "tabs": [
+        {
+          "text": "Кредит",
+          "value": "consumerCredit",
+          "selected": false
+        },
+        {
+          "text": "Вклад",
+          "value": "deposit",
+          "selected": true
+        },
+        {
+          "text": "Автокредит",
+          "value": "vehicleCredit",
+          "selected": false
+        }
+      ],
+      "calcList": {
+        "consumerCredit": {
+          "type": "credit",
+          "widgetSettings": {
+            "calcId": 162,
+            "header": "",
+            "informer": "",
+            "sumLabel": "Сколько вам нужно",
+            "termLabel": "На срок",
+            "disclaimer": "<p>Предварительный расчёт. Не является публичной офертой</p><p>Ставка рассчитывается индивидуально. <a href=\"/ru/person/credits/money/consumer_unsecured?tab=more#stavki\" style=color:#148F2B; target='_blank'>Полная информация</a> о ставках и ПСК</p>",
+            "bonusesText": "",
+            "midToMaxRate": 1.4,
+            "midToMinRate": 0.6,
+            "salesListAll": "",
+            "salesListSale": "",
+            "sliderMarkSum": "10000|150000|2000000|30000000",
+            "bonusesPercent": 2,
+            "bonusesRegions": "",
+            "sliderMarkTerm": "3|24|42|60",
+            "isGetRateFromLS": false,
+            "saleCheckboxLabel": "Есть подписка <a target=\"_blank\" href=\"https://sberprime.sber.ru/plus\">СберПрайм+</a> или пакет <a target=\"_blank\" href=\"/ru/person/sb_premier\">СберПремьер</a>",
+            "isShowSaleCheckbox": false,
+            "isSaleCheckboxChecked": false,
+            "isShowAccurateCheckbox": false
+          }
+        },
+        "vehicleCredit": {
+          "type": "credit",
+          "widgetSettings": {
+            "calcId": 384,
+            "informer": "",
+            "sumLabel": "Сколько вам нужно",
+            "termLabel": "На срок",
+            "disclaimer": "Не является публичной офертой. Расчет произведен на основании покупки автомобиля с пробегом.",
+            "bonusesText": "Начислим бонусов за весь период",
+            "salesListAll": "13|300000|23.9|1",
+            "salesListSale": "",
+            "sliderMarkSum": "",
+            "bonusesPercent": 0,
+            "bonusesRegions": "",
+            "sliderMarkTerm": "",
+            "saleCheckboxLabel": "Есть подписка <a href=\"http://sberprime.sber.ru/plus\" target=\"_blank\">СберПрайм+</a>",
+            "isShowSaleCheckbox": false,
+            "isSaleCheckboxChecked": false,
+            "isShowAccurateCheckbox": false
+          }
+        },
+        "deposit": {
+          "type": "deposit",
+          "widgetSettings": {
+            "calcId": 1128,
+            "calcRateLabels": "",
+            "sberPrimePrice": 399,
+            "defaultCurrency": "RUB",
+            "sberPrimeOnText": "",
+            "isCapRateByMonth": false,
+            "sberPrimeOffText": "",
+            "otherCurrencyName": "",
+            "otherCurrencySymbol": "",
+            "otherCurrencyIsoCode": 0,
+            "isSSRFetchEnabled": false,
+            "detailsBtnLabel": "Подробнее",
+            "detailsBtnLink": "/ru/person/contributions/deposits/prime"
+          }
+        }
+      }
+    },
+    "hoverIcons": [
+      "/common/fhouse/main/images/quick/sbol-hover-1.svg",
+      "/common/fhouse/main/images/quick/sbol-hover-2.svg",
+      "/common/fhouse/main/images/quick/sbol-hover-3.svg"
+    ],
+    "ratesFrontImgUrl": "/common/fhouse/main/images/quick/rates-front-all.png",
+    "referenceRates": {
+      "EUR": "102.4",
+      "USD": "89.7"
+    }
+  },
+  "trustBlock": {
+    "buttonText": "Узнать больше",
+    "buttonLink": "https://www.sberbank.com/ru/about",
+    "desktop": {
+      "title": "Сбер — надёжный<br> банк для каждого",
+      "backgroundImage": "/common/fhouse/main/images/trust/trustsectionbackmass.svg",
+      "blocks": [
+        {
+          "title": "Нам доверяют",
+          "id": "trustus",
+          "description": "СберКарта есть почти у всех — удобно, когда надо перевести деньги",
+          "image": "/common/fhouse/main/images/trustnew/family.jpeg"
+        },
+        {
+          "title": "С нами выгодно",
+          "id": "profit",
+          "description": "Кешбэк за каждую покупку и подписка на кино, музыку и скидки",
+          "image": "/common/fhouse/main/images/trustnew/sber.webp"
+        },
+        {
+          "title": "Делаем технологии доступнее",
+          "id": "tech",
+          "description": "Нейросеть ГигаЧат, умные устройства и оплата улыбкой",
+          "image": "/common/fhouse/main/images/trustnew/phone.webp"
+        },
+        {
+          "title": "Мы всегда рядом",
+          "id": "near",
+          "description": "Круглосуточная поддержка, офисы и банкоматы по всей стране",
+          "image": "/common/fhouse/main/images/trustnew/sbercat_1.webp"
+        }
+      ]
+    },
+    "mobileAndTablet": {
+      "title": "Сбер — надёжный банк для каждого",
+      "backgroundImage": "",
+      "blocks": [
+        {
+          "title": "Нам доверяют",
+          "titleColor": "#FFFFFF",
+          "id": "trustus",
+          "description": "СберКарта есть почти у всех — удобно, когда надо перевести деньги",
+          "descriptionColor": "rgba(255, 255, 255, 0.72)",
+          "backgroundColor": "rgba(12, 23, 20, 0.4)",
+          "backgroundImage": "/common/fhouse/main/images/trustnew/nam_doverie_mob_tab.jpeg"
+        },
+        {
+          "title": "С нами выгодно",
+          "titleColor": "#000000",
+          "id": "profit",
+          "description": "Кешбэк за каждую покупку и подписка на кино, музыку и скидки",
+          "descriptionColor": "rgba(0, 0, 0, 0.72)",
+          "backgroundColor": "",
+          "backgroundImage": "/common/fhouse/main/images/trustnew/sbercat_2.webp"
+        },
+        {
+          "title": "Делаем технологии доступнее",
+          "titleColor": "#FFFFFF",
+          "id": "tech",
+          "description": "Нейросеть GigaChat, умные устройства и оплата улыбкой",
+          "descriptionColor": "rgba(255, 255, 255, 0.72)",
+          "backgroundColor": "",
+          "backgroundImage": "/common/fhouse/main/images/trustnew/backgre.jpeg"
+        },
+        {
+          "title": "Мы всегда рядом",
+          "titleColor": "#000000",
+          "id": "near",
+          "description": "Круглосуточная поддержка, офисы и банкоматы по всей стране",
+          "descriptionColor": "rgba(0, 0, 0, 0.72)",
+          "backgroundColor": "",
+          "backgroundImage": "/common/fhouse/main/images/trustnew/map.jpeg"
+        }
+      ]
+    }
+  },
+  "questionsAndAnswers": {
+    "title": "Остались вопросы?<br>Спросите ГигаЧат",
+    "placeholder": "Задайте свой вопрос",
+    "suggestions": "Мобильное приложение|Служба поддержки|Вход в СберБанк Онлайн|Кредитка|Кешбэк бонусами|СберKids",
+    "suggestionColor": "rgba(255, 255, 255, 0.32)",
+    "suggestionTextColor": "rgb(23, 36, 25)",
+    "suggestionColorHover": "rgba(255, 255, 255, 0.52)",
+    "backgroundColor": "",
+    "backgroundImage": {
+      "backgroundImageXS": "/common/fhouse/main/images/questions/searchbackgroundxs.svg",
+      "backgroundImageMD": "/common/fhouse/main/images/questions/searchbackgroundmd.svg",
+      "backgroundImageXL": "/common/fhouse/main/images/questions/backmassxl.svg"
+    }
+  },
+  "feedback": {
+    "margin": 48,
+    "hintText": "Как вам страница? Поделитесь впечатлением",
+    "labelBad": "",
+    "promptName": "csat_main_page",
+    "formHeading": "Оцените, как вам страница?",
+    "sendBtnText": "Отправить",
+    "labelNeutral": "",
+    "formErrorText": "",
+    "historyLength": "5",
+    "labelPositive": "",
+    "thanksHeading": "",
+    "maxFieldLength": 300,
+    "formPlaceholder": "Ваши предложения",
+    "defaultMarginTop": "64/48px",
+    "defaultMediaType": "image",
+    "isHiddenAfterRate": false,
+    "thanksDescription": "",
+    "hintAppearDelaySec": 10,
+    "defaultMarginBottom": "none",
+    "defaultBackgroundColor": "",
+    "defaultBackgroundImage": "",
+    "defaultBackgroundWidth": "defaultFullWidth",
+    "starButtonGradientColors": "24B23E|43FF66",
+    "styleString": "",
+    "adaptiveSettings": {},
+    "rates": [
+      {
+        "type": "positive",
+        "label": "Хорошо",
+        "image": "/common/fhouse/main/images/feedback/positive.svg"
+      },
+      {
+        "type": "neutral",
+        "label": "Нейтрально",
+        "image": "/common/fhouse/main/images/feedback/neutral.svg"
+      },
+      {
+        "type": "negative",
+        "label": "Плохо",
+        "image": "/common/fhouse/main/images/feedback/negative.svg"
+      }
+    ]
+  },
+  "footerLinks": [
+    {
+      "title": "Частным лицам",
+      "links": [
+        {
+          "text": "Частным лицам",
+          "href": "/ru/person",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": true
+        },
+        {
+          "text": "Дебетовые карты",
+          "href": "/ru/person/bank_cards/debit",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Кредитные карты",
+          "href": "/ru/person/bank_cards/credit_cards",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Платёжный счёт",
+          "href": "/ru/person/bank_cards/debit/platezh",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Платёжный стикер",
+          "href": "/ru/person/bank_cards/debit/sberkarta/pay_sticker",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Кредиты",
+          "href": "/ru/person/credits/money",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Ипотеки",
+          "href": "/ru/person/credits/homenew",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Вклады и счета",
+          "href": "/ru/person/contributions/deposits",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "СберИнвестиции",
+          "href": "/ru/person/investments",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Оплата услуг",
+          "href": "/ru/person/payments",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Переводы",
+          "href": "/ru/person/remittance",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Страхование",
+          "href": "/ru/person/bank_insure/insuranceprogram",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "SberPay",
+          "href": "/ru/person/payments/sberpay",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "СберПрайм",
+          "href": "/sberprime",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Зарплатным клиентам",
+          "href": "/ru/person/privilegii-dlya-zarplatnikov",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Премиум",
+          "href": "/ru/person/premium",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Пенсионерам",
+          "href": "/ru/person_pens",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Молодёжи",
+          "href": "/ru/person_young",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Ветеранам СВО",
+          "href": "/ru/person/veterany-svo",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Иностранным клиентам",
+          "href": "/ru/person/foreign",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Скидки и подарки",
+          "href": "https://partners.sbermarketing.ru/s/ZNLU4sFPZn?statid=699",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Экосистема для жизни",
+          "href": "/ru/ecosystem_sber",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Сервисы безопасности",
+          "href": "/ru/person/cybersecurity/sberbank_online",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        }
+      ]
+    },
+    {
+      "title": "Малому бизнесу и самозанятым",
+      "links": [
+        {
+          "text": "Малому бизнесу и самозанятым",
+          "href": "/ru/s_m_business",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": true
+        },
+        {
+          "text": "Расчётный счёт",
+          "href": "/ru/s_m_business/open-accounts",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Кредит для бизнеса",
+          "href": "/ru/s_m_business/onlinecredit",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Торговый эквайринг",
+          "href": "/ru/s_m_business/bankingservice/acquiring_total",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Бизнес-карты",
+          "href": "/ru/s_m_business/bankingservice/business_cards",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Зарплатный проект",
+          "href": "/ru/s_m_business/bankingservice/cards/salaryproject",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Расчётно-кассовое обслуживание",
+          "href": "/ru/s_m_business/open-accounts",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Интернет-банк СберБизнес",
+          "href": "https://sbi.sberbank.ru:9443/ic/ufs/login.html",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Сервисы для бизнеса",
+          "href": "/ru/s_m_business/nbs",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Самозанятым",
+          "href": "/ru/svoedelo/start",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        }
+      ]
+    },
+    {
+      "title": "Корпорациям и госсектору",
+      "links": [
+        {
+          "text": "Корпорациям и госсектору",
+          "href": "/ru/legal",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": true
+        },
+        {
+          "text": "Банковское обслуживание",
+          "href": "/ru/legal/bankingservice",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Открытие и ведение счетов",
+          "href": "/ru/legal/bankingservice/cash/account",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Банковское сопровождение",
+          "href": "/ru/legal/bankingsupport",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "ВЭД и валютный контроль",
+          "href": "/ru/s_m_business/ved",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Инкассация",
+          "href": "/ru/s_m_business/bankingservice/inkass",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Банковские гарантии",
+          "href": "/ru/legal/credits/warranties",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Лизинг",
+          "href": "/ru/s_m_business/products/leasing",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Факторинг",
+          "href": "/ru/s_m_business/credits/factoring",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        }
+      ]
+    },
+    {
+      "title": "Акционерам и инвесторам",
+      "links": [
+        {
+          "text": "Акционерам и инвесторам",
+          "href": "https://www.sberbank.com/ru",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": true
+        },
+        {
+          "text": "ESG и устойчивое развитие",
+          "href": "https://www.sberbank.com/ru/sustainability",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Инсайдерам",
+          "href": "https://www.sberbank.com/ru/compliance/im",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Акции",
+          "href": "https://www.sberbank.com/ru/investor-relations/share-profile",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Дивиденды",
+          "href": "https://www.sberbank.com/ru/investor-relations/dividends",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Частным акционерам",
+          "href": "https://www.sberbank.com/ru/investor-relations/retail-shareholder-information",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Финансовые новости",
+          "href": "https://www.sberbank.com/ru/investor-relations/ir/news",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Кредитные рейтинги",
+          "href": "https://www.sberbank.com/ru/investor-relations/credit-ratings",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Личный кабинет акционера",
+          "href": "https://www.sberbank.com/ru/investor-relations/personal_account",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Мобильное приложение Акционер Сбера",
+          "href": "https://www.sberbank.com/ru/investor-relations/sbshareholder",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        },
+        {
+          "text": "Противодействие коррупции",
+          "href": "https://www.sberbank.com/ru/compliance/ukipk",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "heading": false
+        }
+      ]
+    }
+  ],
+  "darkFooter": {
+    "links": [
+      {
+        "text": "Веб-версия СберБанк Онлайн",
+        "href": "https://online.sberbank.ru/CSAFront/index.do#/",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Малому бизнесу и ИП",
+        "href": "/ru/s_m_business?segment=you",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "СберПресс",
+        "href": "/ru/sberpress",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "СберТВ",
+        "href": "/ru/sbertv",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Безопасность в Сбере",
+        "href": "/ru/person/cybersecurity",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "О банке",
+        "href": "/ru/about",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Связаться с банком",
+        "href": "/ru/person/call_center",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Вакансии",
+        "href": "https://rabota.sber.ru",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Вопросы и ответы",
+        "href": "/ru/person/help",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Клиентам с инвалидностью",
+        "href": "/ru/person/specialbank",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Офисы и банкоматы",
+        "href": "/ru/oib?tab=vsp",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Курсы валют",
+        "href": "/ru/quotes/currencies",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Политика обработки данных",
+        "href": "/privacy/policy#pdn",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      }
+    ],
+    "address": [
+      "Россия, Москва, 117997, ул. Вавилова, 19 ",
+      "© 1997—2026 ПАО Сбербанк."
+    ],
+    "legal": [
+      {
+        "text": "Генеральная лицензия Банка России на осуществление банковских операций № 1481 от 11.08.2015 г.",
+        "href": "/common/img/uploaded/files/el_docs/licence_sberbank.pdf",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Информация о процентных ставках по договорам банковского вклада с физическими лицами",
+        "href": "https://www.sberbank.com/ru/investor-relations/ras_vklad",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Информация, обязательная к размещению",
+        "href": "/ru/inform",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "Раскрытие информации о банке как о профессиональном участнике рынка ценных бумаг",
+        "href": "/ru/disclosure6496u",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      },
+      {
+        "text": "На информационном ресурсе применяются рекомендательные технологии",
+        "href": "/privacy/recommtechrules",
+        "target": "_blank",
+        "rel": "noopener noreferrer"
+      }
+    ],
+    "phones": [
+      {
+        "text": "Звонок из приложения СберБанк Онлайн",
+        "href": "/sms/calltobank",
+        "ariaLabel": "Звонок из приложения СберБанк Онлайн Через интернет, бесплатно по Wi-Fi",
+        "description": "Через интернет, бесплатно по Wi-Fi"
+      },
+      {
+        "text": "900",
+        "href": "tel:900",
+        "ariaLabel": "900 Бесплатно по России при звонке в сети операторов МТС, билайн, МегаФон, T2, Yota, Мотив",
+        "description": "Бесплатно по России при звонке в сети операторов МТС, билайн, МегаФон, T2, Yota, Мотив"
+      },
+      {
+        "text": "Звонок из-за границы",
+        "href": "/ru/person/call_center",
+        "ariaLabel": "Звонок из-за границы Стоимость звонка зависит от тарифа вашего мобильного оператора",
+        "description": "Стоимость звонка зависит от тарифа вашего мобильного оператора"
+      }
+    ],
+    "apps": [
+      {
+        "text": "Загрузите наAndroid",
+        "href": "/ru/person/dist_services/sberbank-online-android/sait-sber",
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "image": "/static/constructor/dict/1770022344795.svg",
+        "title": "Загрузите на",
+        "subtitle": "Android"
+      },
+      {
+        "text": "Загрузите наIOS",
+        "href": "/ru/person/dist_services/inner_sbol/verni_sber",
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "image": "/static/constructor/dict/1770798197227.svg",
+        "title": "Загрузите на",
+        "subtitle": "IOS"
+      },
+      {
+        "text": "Откройте вAppGallery",
+        "href": "/ru/person/dist_services/sberbank-online-android/appgallery",
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "image": "/static/constructor/dict/1770022406279.svg",
+        "title": "Откройте в",
+        "subtitle": "AppGallery"
+      },
+      {
+        "text": "Скачайте вRustore",
+        "href": "/ru/person/dist_services/sberbank-online-android/rustore",
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "image": "/static/constructor/dict/1770022428044.svg",
+        "title": "Скачайте в",
+        "subtitle": "Rustore"
+      }
+    ],
+    "social": [
+      {
+        "href": "http://vk.com/sberbank",
+        "ariaLabel": "Сбербанк в ВКонтакте",
+        "image": "/static/constructor/dict/1770022472896.svg"
+      },
+      {
+        "href": "https://ok.ru/sberbank",
+        "ariaLabel": "Сбербанк в Одноклассниках",
+        "image": "/static/constructor/dict/1770022477495.svg"
+      },
+      {
+        "href": "https://t.me/sberbank",
+        "ariaLabel": "Сбербанк в Telegram",
+        "image": "/static/constructor/dict/1770022481806.svg"
+      },
+      {
+        "href": "https://max.ru/sber",
+        "ariaLabel": "Сбербанк в Максе",
+        "image": "/static/constructor/dict/1771315514977.svg"
+      }
+    ],
+    "english": {
+      "text": "English version",
+      "href": "/en/individualclients",
+      "target": "_blank",
+      "rel": "noopener noreferrer",
+      "image": "/static/constructor/dict/1770039332130.png"
+    }
+  }
 }

@@ -1,0 +1,22 @@
+@font-face { font-family: SBSansTrustText; src: url('/fonts/SBSansText-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+.trust-section { position: relative; isolation: isolate; margin-bottom: 128px; }
+.ShortMainPage-DesktopTrust__item-description, .ShortMainPage-Card__description { font-family: SBSansTrustText, SBSansText, Arial, sans-serif; }
+.trust-background { display: none; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; pointer-events: none; }
+.trust-section .ShortMainPage-DesktopTrust { display: none; }
+.ShortMainPage-DesktopTrust__heading { margin: 0; font-family: SBSansDisplay, Arial, sans-serif; }
+.ShortMainPage-DesktopTrust__item-heading { margin: 0 0 16px; font-family: SBSansDisplay, Arial, sans-serif; }
+.ShortMainPage-DesktopTrust__button, .ShortMainPage-MobileAndTabletTrust__button { display: flex; justify-content: center; align-items: center; min-height: 52px; padding: 16px 32px; }
+.ShortMainPage-MobileAndTabletTrust__heading { color: #262626; font-family: SBSansDisplay, Arial, sans-serif; }
+.ShortMainPage-Card__title { margin-top: 0; }
+.trust-section .swiper-notification { position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none; }
+@media (min-width: 768px) { .trust-section { margin-bottom: 146px; } }
+@media (min-width: 1024px) { .trust-section { margin-bottom: 160px; } .trust-background { display: block; } }
+@media (min-width: 1366px) {
+  .trust-section { margin-bottom: 80px; }
+  .trust-section .ShortMainPage-DesktopTrust { display: flex; }
+  .trust-section .ShortMainPage-MobileAndTabletTrust { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ShortMainPage-DesktopTrust__block { transition: none; }
+  .trust-section .swiper-wrapper { transition-duration: 0ms !important; }
+}

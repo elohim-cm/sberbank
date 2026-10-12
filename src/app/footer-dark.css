@@ -1,0 +1,7 @@
+/* Keep the official footer fonts isolated from the previously validated sections. */
+@font-face { font-family: SBSansFooterText; src: url('/fonts/SBSansText-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: SBSansFooterText; src: url('/fonts/SBSansText-Semibold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+.footer-widget-darkFooter { font-family: SBSansFooterText, SBSansText, Arial, sans-serif; }
+@media (prefers-reduced-motion: reduce) {
+  .footer-widget, .footer-widget-darkFooter .dk-sbol-link { transition: none; }
+}

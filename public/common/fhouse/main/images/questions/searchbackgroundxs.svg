@@ -1,0 +1,50 @@
+<svg width="1458.604614" height="308.093750" viewBox="0 0 1458.6 308.094" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_44_2925_dd" x="0.000000" y="86.250000" width="1458.604614" height="135.609375" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="19.845" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_44_2926_dd" x="242.604156" y="75.372070" width="973.395386" height="152.868164" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="19.845" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_44_2927_dd" x="301.394653" y="0.000000" width="855.813965" height="308.093750" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="40.6822" result="effect_layerBlur_1"/>
+		</filter>
+		<linearGradient x1="59.534882" y1="154.054810" x2="1399.069702" y2="154.054810" id="paint_linear_44_2925_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EDF6F1"/>
+			<stop offset="0.194435" stop-color="#6EEC9F"/>
+			<stop offset="0.501377" stop-color="#65EC93"/>
+			<stop offset="0.759435" stop-color="#12B3D6"/>
+			<stop offset="1.000000" stop-color="#EDF6F1"/>
+		</linearGradient>
+		<linearGradient x1="302.139038" y1="151.806091" x2="1156.464600" y2="151.806091" id="paint_linear_44_2926_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#EDF6F1"/>
+			<stop offset="0.194435" stop-color="#6EEC9F"/>
+			<stop offset="0.501377" stop-color="#65EC93"/>
+			<stop offset="0.759435" stop-color="#12B3D6"/>
+			<stop offset="1.000000" stop-color="#EDF6F1"/>
+		</linearGradient>
+		<linearGradient x1="423.441162" y1="154.046875" x2="1035.162109" y2="154.046875" id="paint_linear_44_2927_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#6EEC9F"/>
+			<stop offset="0.501377" stop-color="#65EC93"/>
+			<stop offset="1.000000" stop-color="#12B3D6"/>
+		</linearGradient>
+	</defs>
+	<g filter="url(#filter_44_2925_dd)">
+		<rect id="Input Background" x="59.534882" y="145.785156" rx="8.269664" width="1339.534790" height="16.539328" fill="url(#paint_linear_44_2925_0)" fill-opacity="1.000000"/>
+	</g>
+	<g filter="url(#filter_44_2926_dd)">
+		<rect id="Input Background" x="302.139038" y="134.907227" rx="16.898874" width="854.325562" height="33.797749" fill="url(#paint_linear_44_2926_0)" fill-opacity="1.000000"/>
+	</g>
+	<g filter="url(#filter_44_2927_dd)">
+		<rect id="Input Background" x="423.441162" y="122.046875" rx="17.860466" width="611.720947" height="64.000000" fill="url(#paint_linear_44_2927_0)" fill-opacity="1.000000"/>
+	</g>
+</svg>

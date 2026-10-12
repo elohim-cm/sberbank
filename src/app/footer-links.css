@@ -1,0 +1,23 @@
+/* Original footer rules supplied by the user; duplicate identical rules omitted. */
+.footer-widget-lightFooter { background-color: rgb(255, 255, 255); border-radius: 32px; position: relative; z-index: 1; }
+.footer-widget-lightFooter__wrapper { display: flex; flex-direction: column; margin: 0px auto; max-width: 1168px; padding: 64px 16px; }
+@media (min-width: 768px) { .footer-widget-lightFooter__wrapper { flex-direction: row; justify-content: space-between; padding: 86px 24px 24px; } }
+@media (min-width: 1366px) { .footer-widget-lightFooter__wrapper { padding: 92px 0px 24px; } }
+@media screen and (min-width: 1440px) { .footer-widget-lightFooter__wrapper { margin: auto; padding: 92px 0px 24px; } }
+.footer-widget-lightFooter__block { margin-bottom: 32px; }
+.footer-widget-lightFooter__block:last-child { margin-bottom: 0px; }
+@media (min-width: 768px) { .footer-widget-lightFooter__block { width: 144px; } }
+@media (min-width: 1024px) { .footer-widget-lightFooter__block { width: 25%; } }
+.footer-widget-lightFooter__item { background-color: initial; color: rgba(23, 36, 25, 0.72); cursor: pointer; display: block; margin-bottom: 12px; text-decoration: none; width: fit-content; }
+.footer-widget-lightFooter__item > .dk-sbol-text { font-size: 14px; font-weight: 500; letter-spacing: -0.1px; line-height: 18px; }
+.footer-widget-lightFooter__item:focus, .footer-widget-lightFooter__item:hover { color: rgb(135, 139, 144); }
+.footer-widget-lightFooter__item:last-child { margin-bottom: 0px; }
+@media (min-width: 1366px) { .footer-widget-lightFooter__item { margin-bottom: 20px; } }
+.footer-widget-lightFooter__item_type_heading { margin-bottom: 16px; }
+.footer-widget-lightFooter__item_type_heading > .dk-sbol-text { color: rgb(0, 0, 0); font-size: 14px; font-weight: 600; letter-spacing: -0.2px; line-height: 18px; }
+.footer-widget-lightFooter { box-shadow: rgba(0, 0, 0, 0.12) 5px 0px 55px; }
+
+/* Load the existing official Medium font only for this footer, without changing prior sections. */
+@font-face { font-family: SBSansFooterText; src: url('/fonts/SBSansText-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+.footer-widget-lightFooter__item > .dk-sbol-text { font-family: SBSansFooterText, SBSansText, Arial, sans-serif; }
+.footer-widget-lightFooter__item_type_heading > .dk-sbol-text { font-family: SBSansText, Arial, sans-serif; }
