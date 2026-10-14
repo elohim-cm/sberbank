@@ -1,0 +1,735 @@
+[
+  {
+    "product": "Сбербанк Онлайн",
+    "url": "/ru/person/dist_services/sberbank-online-android",
+    "icon": "/common/img/uploaded/files/gigasearch/Prilozhenie.svg",
+    "keywords": [
+      "Мобильное",
+      "Мобильное приложение",
+      "Приложение",
+      "Система",
+      "Систему",
+      "Вход",
+      "Войти",
+      "Личный",
+      "Кабинет",
+      "Сбер",
+      "СБОЛ"
+    ]
+  },
+  {
+    "product": "Восстановление пароля",
+    "url": "/ru/person/help/dist_services_faq/1683",
+    "icon": "/common/img/uploaded/files/gigasearch/funkciya_nastrojki.svg",
+    "keywords": [
+      "Логин",
+      "Восстановить",
+      "Как восстановить",
+      "Пароль",
+      "Не помню",
+      "Забыл"
+    ]
+  },
+  {
+    "product": "СберПрайм",
+    "url": "/sberprime",
+    "icon": "/common/img/uploaded/files/gigasearch/sberfest_keshbek.svg",
+    "keywords": [
+      "Прайм",
+      "СберПрайм",
+      "Подписка",
+      "Выгода",
+      "Скидки",
+      "Партнеры",
+      "Промокод"
+    ]
+  },
+  {
+    "product": "Кредитные карты",
+    "url": "/ru/person/bank_cards/credit_cards",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Кредитные",
+      "Кредитная карта",
+      "Кредитка",
+      "Кредитки",
+      "Карты",
+      "Беспроцентный"
+    ]
+  },
+  {
+    "product": "Регистрация на Госуслугах",
+    "url": "/ru/person/dist_services/gosuslugi/accounting_confirmation",
+    "icon": "/common/img/uploaded/files/gigasearch/socialnieviplaty.svg",
+    "keywords": [
+      "Госуслуги",
+      "Регистрация"
+    ]
+  },
+  {
+    "product": "Кредитная СберКарта",
+    "url": "/ru/person/bank_cards/credit_cards/credit_sberkarta",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Кредитная",
+      "Кредитка",
+      "120",
+      "Беспроцентный"
+    ]
+  },
+  {
+    "product": "Кредитная СберКарта Фикс",
+    "url": "/ru/person/bank_cards/credit_cards/credit_sberkarta_fix",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Кредитная",
+      "Кредитка",
+      "Фикс"
+    ]
+  },
+  {
+    "product": "Кредитная СберКарта Молодежная",
+    "url": "/ru/person/bank_cards/credit_cards/molodezhnaya",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Кредитная",
+      "Кредитка",
+      "Молодёжная",
+      "для молодёжи"
+    ]
+  },
+  {
+    "product": "Дебетовые карты",
+    "url": "/ru/person/bank_cards/debit",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Дебетовые",
+      "Дебетовки",
+      "Карты",
+      "Дизайн",
+      "Кешбэк",
+      "Карта",
+      "доставка"
+    ]
+  },
+  {
+    "product": "СберКарта",
+    "url": "/ru/person/bank_cards/debit/sberkarta",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Дебетовая",
+      "Дебетовка",
+      "СберКарта",
+      "Карта",
+      "Дизайн",
+      "Кешбэк",
+      "доставка"
+    ]
+  },
+  {
+    "product": "Молодёжная СберКарта",
+    "url": "/ru/person/bank_cards/debit/sberkarta_young",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Дебетовая",
+      "Дебетовка",
+      "СберКарта",
+      "Карта",
+      "Дизайн",
+      "Кешбэк",
+      "доставка"
+    ]
+  },
+  {
+    "product": "Детская СберКарта",
+    "url": "/ru/person/bank_cards/debit/sberkarta_kids",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Дебетовая",
+      "Дебетовка",
+      "Детская",
+      "Детям",
+      "Для детей",
+      "Кешбэк",
+      "Дизайн",
+      "Кидс"
+    ]
+  },
+  {
+    "product": "СберКарта Мир для пособий и пенсии",
+    "url": "/ru/person/bank_cards/debit/sberkarta_social",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Дебетовая",
+      "Дебетовка",
+      "Пенсия",
+      "Пособия",
+      "Остаток",
+      "Кешбэк",
+      "Карта",
+      "доставка"
+    ]
+  },
+  {
+    "product": "СберФест",
+    "url": "/ru/person/bank_cards/sberfest",
+    "icon": "/common/img/uploaded/files/gigasearch/sberfest_keshbek.svg",
+    "keywords": [
+      "Дебетовая",
+      "Дебетовка",
+      "Детская",
+      "Детям",
+      "Для детей",
+      "Кешбэк",
+      "Дизайн",
+      "Кидс"
+    ]
+  },
+  {
+    "product": "Монеты из драгоценных металлов",
+    "url": "/ru/person/mon#",
+    "icon": "/common/img/uploaded/files/gigasearch/monety_i_slitky.svg",
+    "keywords": [
+      "Инвестиции",
+      "Драгоценные",
+      "Монеты"
+    ]
+  },
+  {
+    "product": "SberPay",
+    "url": "/ru/person/payments/sberpay",
+    "icon": "/common/img/uploaded/files/gigasearch/Sposoby_oplati.svg",
+    "keywords": [
+      "Сберпэй",
+      "Оплата"
+    ]
+  },
+  {
+    "product": "Оплата улыбкой",
+    "url": "/ru/person/payments/sberpay/oplata-ulybkoi",
+    "icon": "/common/img/uploaded/files/gigasearch/Sposoby_oplati.svg",
+    "keywords": [
+      "Сберпэй",
+      "Оплата",
+      "улыбка",
+      "биометрия"
+    ]
+  },
+  {
+    "product": "Оплата телефоном",
+    "url": "/promo/sberpay",
+    "icon": "/common/img/uploaded/files/gigasearch/Sposoby_oplati.svg",
+    "keywords": [
+      "Сберпэй",
+      "Оплата",
+      "телефоном",
+      "нфс",
+      "nfc"
+    ]
+  },
+  {
+    "product": "Оплата онлайн",
+    "url": "/ru/person/payments/sberpay/online_sberpay",
+    "icon": "/common/img/uploaded/files/gigasearch/Sposoby_oplati.svg",
+    "keywords": [
+      "Сберпэй",
+      "Оплата",
+      "онлайн"
+    ]
+  },
+  {
+    "product": "Оплата по QR",
+    "url": "/ru/person/payments/sberpay/oplata-ulybkoi",
+    "icon": "/common/img/uploaded/files/gigasearch/Sposoby_oplati.svg",
+    "keywords": [
+      "Сберпэй",
+      "Оплата"
+    ]
+  },
+  {
+    "product": "Платежи",
+    "url": "/ru/person/payments",
+    "icon": "/common/img/uploaded/files/gigasearch/Platezhy.svg",
+    "keywords": [
+      "Платежи",
+      "Оплата"
+    ]
+  },
+  {
+    "product": "ЖКХ",
+    "url": "/ru/person/payments/zhkh",
+    "icon": "/common/img/uploaded/files/gigasearch/Platezhy.svg",
+    "keywords": [
+      "Платежи",
+      "жкх",
+      "счетчики",
+      "дом"
+    ]
+  },
+  {
+    "product": "Дом",
+    "url": "/ru/person/payments/zhkh/home",
+    "icon": "/common/img/uploaded/files/gigasearch/Platezhy.svg",
+    "keywords": [
+      "Платежи",
+      "жкх",
+      "дом"
+    ]
+  },
+  {
+    "product": "Переводы по России",
+    "url": "/ru/person/remittance",
+    "icon": "/common/img/uploaded/files/gigasearch/Perevody.svg",
+    "keywords": [
+      "Переводы",
+      "по России"
+    ]
+  },
+  {
+    "product": "Переводы клиентам СберБанка",
+    "url": "/ru/person/remittance/beznal_cc_rus",
+    "icon": "/common/img/uploaded/files/gigasearch/Perevody.svg",
+    "keywords": [
+      "Переводы",
+      "по номеру"
+    ]
+  },
+  {
+    "product": "Переводы по номеру счёта в другой банк",
+    "url": "/ru/person/remittance/po_nomeru",
+    "icon": "/common/img/uploaded/files/gigasearch/Perevody.svg",
+    "keywords": [
+      "Переводы",
+      "по номеру",
+      "по счету",
+      "счет"
+    ]
+  },
+  {
+    "product": "СБП",
+    "url": "/ru/person/remittance/sbp",
+    "icon": "/common/img/uploaded/files/gigasearch/Perevody.svg",
+    "keywords": [
+      "Переводы",
+      "сбп"
+    ]
+  },
+  {
+    "product": "Переводы за рубеж",
+    "url": "/ru/person/remittance_foreign",
+    "icon": "/common/img/uploaded/files/gigasearch/Perevody.svg",
+    "keywords": [
+      "Переводы",
+      "за рубеж",
+      "за границу"
+    ]
+  },
+  {
+    "product": "Интернет Банк СберБизнес",
+    "url": "/ru/s_m_business/new_sbbol",
+    "icon": "/common/img/uploaded/files/gigasearch/SberBiznes.svg",
+    "keywords": [
+      "Сбербанк бизнес",
+      "Бизнес",
+      "Кабинет для"
+    ]
+  },
+  {
+    "product": "Уведомления об операциях",
+    "url": "/ru/person/dist_services/inner_mbank",
+    "icon": "/common/img/uploaded/files/gigasearch/funkciya_nastrojki.svg",
+    "keywords": [
+      "Сколько стоят",
+      "Уведомления",
+      "СМС",
+      "Пуш",
+      "push"
+    ]
+  },
+  {
+    "product": "Структурные продукты СберБанка",
+    "url": "/ru/person/investments/structured_products",
+    "icon": "/common/img/uploaded/files/gigasearch/akcii_i_obligacii.svg",
+    "keywords": [
+      "Инвестиции",
+      "ИОС",
+      "Структурные"
+    ]
+  },
+  {
+    "product": "SberKids",
+    "url": "/ru/person/bank_cards/debit/sberkarta_kids/sberkids",
+    "icon": "/common/img/uploaded/files/gigasearch/Prilozhenie.svg",
+    "keywords": [
+      "Детский",
+      "Кидс",
+      "Для детей",
+      "приложение",
+      "детям"
+    ]
+  },
+  {
+    "product": "Служба поддержки",
+    "url": "/ru/person/call_center",
+    "icon": "/common/img/uploaded/files/gigasearch/pomosh.svg",
+    "keywords": [
+      "Поддержка",
+      "Помощь",
+      "Контакты"
+    ]
+  },
+  {
+    "product": "СберМобайл",
+    "url": "https://sbermobile.ru/",
+    "icon": "/common/img/uploaded/files/gigasearch/operator_svyazi.svg",
+    "keywords": [
+      "Мобайл",
+      "Связь",
+      "Мобильная связь"
+    ]
+  },
+  {
+    "product": "СберСпасибо",
+    "url": "/ru/person/bank_cards/debit/sberkarta?tab=bonus",
+    "icon": "/common/img/uploaded/files/gigasearch/spasibki.svg",
+    "keywords": [
+      "Спасибо",
+      "Бонусы",
+      "Кешбек",
+      "Лояльность",
+      "Программа"
+    ]
+  },
+  {
+    "product": "Работа в Сбере",
+    "url": "https://rabota.sber.ru/",
+    "icon": "/common/img/uploaded/files/gigasearch/rabota.svg",
+    "keywords": []
+  },
+  {
+    "product": "Перевод зарплаты в Сбер",
+    "url": "/ru/person/promo/privilegii-dlya-zarplatnikov ",
+    "icon": "/common/img/uploaded/files/gigasearch/zarplatnie_klienty.svg",
+    "keywords": [
+      "Перевод зарплаты вСбер",
+      "Зарплата",
+      "ЗП"
+    ]
+  },
+  {
+    "product": "Выход на пенсию",
+    "url": "/ru/person/pensioneram/kak-pojti-na-pensiyu",
+    "icon": "/common/img/uploaded/files/gigasearch/Sovety_novosti_statyi.svg",
+    "keywords": [
+      "Перевод пенсии в Сбер",
+      "Перевод пенсии",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "Активный возраст",
+    "url": "/ru/aktivniy_vozrast",
+    "icon": "/common/img/uploaded/files/gigasearch/Sovety_novosti_statyi.svg",
+    "keywords": [
+      "Новости",
+      "Статьи для пенсионеров",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "СберКарта Мир",
+    "url": "/ru/person/bank_cards/debit/sberkarta_social",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Карта",
+      "Карта для пенсионеров",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "Деньги до пенсии",
+    "url": "/ru/person/credits/money/dengi-do-pensii",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Кредит",
+      "Кредит для пенсионеров",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "Кредит для пенсионеров",
+    "url": "/ru/person/credits/money/kredity_dlya_pensionerov",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Кредит",
+      "Кредит для пенсионеров",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "Вклады и счета для пенсионеров",
+    "url": "/ru/person/contributions/deposits?tab=pens",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады",
+      "Вклады для пенсионеров",
+      "Для пенсионеров",
+      "Пенсия"
+    ]
+  },
+  {
+    "product": "Вклады для клиентов Нового СберПервого",
+    "url": "/ru/person/sb1/vklad",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады",
+      "Премиальные вклады",
+      "Премиум вклады",
+      "Вклад для СберПервого"
+    ]
+  },
+  {
+    "product": "Вклады для клиентов Нового СберПремьера",
+    "url": "/ru/person/sb_premier/vklady_page",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады",
+      "Премиальные вклады",
+      "Премиум вклады",
+      "Вклад для СберПремьера"
+    ]
+  },
+  {
+    "product": "Страхование в путешествиях",
+    "url": "/ru/person/sb_premier/insur",
+    "icon": "/common/img/uploaded/files/gigasearch/Puteshestviya.svg",
+    "keywords": [
+      "Путешествия",
+      "Продукты для премиум",
+      "Страхование",
+      "Страхование для премиум"
+    ]
+  },
+  {
+    "product": "Кредит для клиентов Нового СберПервого",
+    "url": "/ru/person/sb1/kredit",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Карты",
+      "Продукты для премиум",
+      "Кредит"
+    ]
+  },
+  {
+    "product": "Кредитная СберКарта Премиум",
+    "url": "/ru/person/sb1/kredinaya-sberkarta-premium",
+    "icon": "/common/img/uploaded/files/gigasearch/Karty.svg",
+    "keywords": [
+      "Карты",
+      "Продукты для премиум",
+      "Премиум"
+    ]
+  },
+  {
+    "product": "Бизнес-залы для клиентов Нового СберПервого",
+    "url": "/ru/person/sb1/priority",
+    "icon": "/common/img/uploaded/files/gigasearch/Puteshestviya.svg",
+    "keywords": [
+      "Бизнес-зал",
+      "Как попасть в бизнес-зал",
+      "Продукты для премиум",
+      "Путешествия"
+    ]
+  },
+  {
+    "product": "Бизнес-зал в Шереметьево",
+    "url": "/ru/person/zal-v-sheremetevo",
+    "icon": "/common/img/uploaded/files/gigasearch/Puteshestviya.svg",
+    "keywords": [
+      "Бизнес-зал",
+      "Бизнес-зал Шереметьево",
+      "Шереметьево",
+      "Путешествия"
+    ]
+  },
+  {
+    "product": "Бизнес-залы для клиентов Нового СберПремьера",
+    "url": "/ru/person/sb_premier/onpass_new",
+    "icon": "/common/img/uploaded/files/gigasearch/Puteshestviya.svg",
+    "keywords": [
+      "Бизнес-зал",
+      "Бизнес зал для премьер",
+      "Премьер",
+      "Путешествия"
+    ]
+  },
+  {
+    "product": "Банк для близких",
+    "url": "/ru/person/roditelyam-i-detyam",
+    "icon": "/common/img/uploaded/files/gigasearch/bank_dlya_blizkih.svg",
+    "keywords": [
+      "Семья",
+      "Для семьи",
+      "Совместные продукты для семьи"
+    ]
+  },
+  {
+    "product": "СберБанк для всей семьи",
+    "url": "/ru/person/semeinyi-bank",
+    "icon": "/common/img/uploaded/files/gigasearch/bank_dlya_blizkih.svg",
+    "keywords": [
+      "Семья",
+      "Для семьи",
+      "Совместные продукты для семьи"
+    ]
+  },
+  {
+    "product": "Социальные выплаты",
+    "url": "/ru/person/social",
+    "icon": "/common/img/uploaded/files/gigasearch/SocialnieViplaty.svg",
+    "keywords": [
+      "Семья",
+      "Для семьи",
+      "Совместные продукты для семьи",
+      "Социальные выплаты"
+    ]
+  },
+  {
+    "product": "Вклад «Лучший %»",
+    "url": "/ru/person/contributions/deposits/luchshiy_procent",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады и счета",
+      "Вклад в СберБанке",
+      "Вклад с высокой ставкой"
+    ]
+  },
+  {
+    "product": "Накопительный счёт",
+    "url": "/ru/person/contributions/deposits/nakopi_ab",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады и счета",
+      "Накопительный счёт",
+      "Вклад с пополнением и снятием"
+    ]
+  },
+  {
+    "product": "Вклад в юанях",
+    "url": "/ru/person/contributions/deposits/vklad_v_yuanyah",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Валютные вклады",
+      "Юани",
+      "Вклад в валюте",
+      "Валютный вклад",
+      "Депозит в валюте"
+    ]
+  },
+  {
+    "product": "Вклад в дирхамах",
+    "url": "/ru/person/contributions/deposits/vklad_v_dirhamah",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Валютные вклады",
+      "Вклад в дирхамах",
+      "Депозит в дирхамах",
+      "Дирхам"
+    ]
+  },
+  {
+    "product": "Вклад «Забота о будущем»",
+    "url": "/ru/person/contributions/deposits/zabota_o_budushchem",
+    "icon": "/common/img/uploaded/files/gigasearch/Vklady_i_sheta.svg",
+    "keywords": [
+      "Вклады и счета",
+      "Вклад с ПДС"
+    ]
+  },
+  {
+    "product": "Кредит наличными",
+    "url": "/ru/person/credits/money/consumer_unsecured",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Кредиты",
+      "Потребительский кредит",
+      "Кредит",
+      "Кредит наличными",
+      "Онлайн заявка",
+      "Без справок"
+    ]
+  },
+  {
+    "product": "Кредит на образование с господдержкой",
+    "url": "/ru/person/credits/money/credit_na_obrazovanie",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Образовательный кредит",
+      "Кредит на образование",
+      "Льготный кредит",
+      "Для студентов"
+    ]
+  },
+  {
+    "product": "Кредит под залог",
+    "url": "/ru/person/credits/money/credit_zalog",
+    "icon": "/common/img/uploaded/files/gigasearch/%D1%81redit_icon.svg",
+    "keywords": [
+      "Кредиты",
+      "Кредит под залог",
+      "Под залог недвижимости",
+      "Кредит под залог авто",
+      "Кредит на 20 лет"
+    ]
+  },
+  {
+    "product": "Автокредит",
+    "url": "/ru/person/credits/money/avtokredit",
+    "icon": "/common/img/uploaded/files/gigasearch/kredity.svg",
+    "keywords": [
+      "Кредиты",
+      "Автокредит",
+      "Кредит на авто",
+      "Автокредит условия"
+    ]
+  },
+  {
+    "product": "Семейная ипотека",
+    "url": "/ru/person/credits/home/family",
+    "icon": "/common/img/uploaded/files/gigasearch/ipoteka.svg",
+    "keywords": [
+      "Ипотека",
+      "Ипотека для семей",
+      "Льготная ипотека",
+      "Семейная ипотека условия",
+      "С низкой ставкой"
+    ]
+  },
+  {
+    "product": "Ипотека на вторичное жильё",
+    "url": "/ru/person/credits/home/buying_complete_house",
+    "icon": "/common/img/uploaded/files/gigasearch/ipoteka.svg",
+    "keywords": [
+      "Ипотека",
+      "Ипотека на вторичку",
+      "Ипотека на квартиру",
+      "Условия ипотеки на вторичку"
+    ]
+  },
+  {
+    "product": "Ипотека на новостройку",
+    "url": "/ru/person/credits/home/buying_project",
+    "icon": "/common/img/uploaded/files/gigasearch/ipoteka.svg",
+    "keywords": [
+      "Ипотека",
+      "Ипотека на новостройку",
+      "Условия ипотеки на новостройки",
+      "Новостройки"
+    ]
+  }
+]
