@@ -6,14 +6,15 @@ import { useRouter } from "next/navigation";
 import { dashboardHref, testProfiles as profiles } from "../test-profiles";
 import pageStyles from "./registration.module.css";
 import styles from "./registration-dialog.module.css";
+import RegistrationFields from "./registration-fields";
+import { createLocalProfile, emptyRegistration, registrationSummary, validateRegistration, type RegistrationData, type RegistrationErrors } from "./registration-data";
 
-// Fixtures only: no editable personal data, credentials, persistence or API calls.
+// Editable registration is local to this frontend session; no backend is connected.
 const products = [
   { title: "Виртуальная карта", icon: "▱" },
   { title: "Кредитная карта", icon: "+" },
 ];
-const occupations = ["Наёмный работник", "Руководитель", "Предприниматель", "Фрилансер", "Самозанятый", "Пенсионер", "Без работы", "Другое"];
-const steps = ["Продукт", "Профиль", "Предпросмотр"];
+const steps = ["Продукт", "Профиль", "Подтверждение"];
 
 export default function RegistrationDialog() {
   const router = useRouter();
@@ -21,15 +22,19 @@ export default function RegistrationDialog() {
   const trigger = useRef<HTMLButtonElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const stepTitle = useRef<HTMLHeadingElement>(null);
+  const focusFirstError = useRef(false);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"registration" | "login">("registration");
   const [step, setStep] = useState(0);
   const [product, setProduct] = useState(0);
   const [profileIndex, setProfileIndex] = useState(0);
-  const [occupation, setOccupation] = useState(occupations[0]);
+  const [data, setData] = useState<RegistrationData>({ ...emptyRegistration });
+  const [errors, setErrors] = useState<RegistrationErrors>({});
+  const [registeredId, setRegisteredId] = useState<string | null>(null);
   const [finished, setFinished] = useState(false);
   const profile = profiles[profileIndex];
-  const destination = dashboardHref(profile.id, mode === "registration" ? (product === 1 ? "credit" : "virtual") : profile.product);
+  const destination = dashboardHref(mode === "registration" ? registeredId ?? "new" : profile.id, mode === "registration" ? (product === 1 ? "credit" : "virtual") : profile.product);
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Douala", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
   const fields = [
     ["Полное имя", profile.name], ["Дата рождения", profile.birth],
     ["Гражданство", "РФ — пример"], ["Страна проживания", "Россия — пример"],
@@ -60,15 +65,43 @@ export default function RegistrationDialog() {
   }, [finished, open, destination, router]);
 
   useEffect(() => {
-    if (open) router.prefetch(destination);
-  }, [open, destination, router]);
+    if (open && (mode === "login" || registeredId)) router.prefetch(destination);
+  }, [open, destination, router, mode, registeredId]);
+
+  useEffect(() => {
+    if (!focusFirstError.current) return;
+    focusFirstError.current = false;
+    const firstInvalid = Object.keys(errors)[0];
+    if (firstInvalid) document.getElementById(`registration-${firstInvalid}`)?.focus();
+  }, [errors]);
+
+  function updateField(key: keyof RegistrationData, value: string) {
+    setData(previous => ({ ...previous, [key]: value }));
+    if (errors[key]) setErrors(previous => { const next = { ...previous }; delete next[key]; return next; });
+  }
+
+  function advance() {
+    if (finished) { router.replace(destination); return; }
+    if (mode === "login") { setFinished(true); return; }
+    if (step === 1 || step === 2) {
+      const nextErrors = validateRegistration(data, today);
+      if (Object.keys(nextErrors).length) { focusFirstError.current = true; setErrors(nextErrors); setStep(1); return; }
+    }
+    if (step === 2) {
+      const localProfile = createLocalProfile(data, product === 1 ? "credit" : "virtual");
+      setRegisteredId(localProfile.id);
+      setFinished(true);
+    } else setStep(step + 1);
+  }
 
   function show() {
     setMode("registration");
     setStep(0);
     setProduct(0);
     setProfileIndex(0);
-    setOccupation(occupations[0]);
+    setData({ ...emptyRegistration });
+    setErrors({});
+    setRegisteredId(null);
     setFinished(false);
     setOpen(true);
   }
@@ -79,16 +112,16 @@ export default function RegistrationDialog() {
     setFinished(false);
   }
 
-  const title = finished ? "Вход выполнен успешно" : mode === "login" ? "Выберите тестовый профиль" : ["Выберите продукт", "Личные сведения", "Проверьте выбранное"][step];
+  const title = finished ? (mode === "registration" ? "Профиль подготовлен" : "Вход выполнен успешно") : mode === "login" ? "Выберите тестовый профиль" : ["Выберите продукт", "Личные сведения", "Проверьте ваши данные"][step];
 
   return <>
     <button ref={trigger} className={pageStyles.primary} type="button" onClick={show} aria-haspopup="dialog" aria-controls="registration-dialog">
       Создать личный кабинет <span aria-hidden="true">→</span>
     </button>
-    {open && createPortal(<dialog id="registration-dialog" ref={dialog} className={styles.dialog} aria-labelledby="registration-title" aria-describedby="registration-notice"
-      onClose={() => { setOpen(false); trigger.current?.focus(); }}
+    {open && createPortal(<dialog id="registration-dialog" ref={dialog} className={styles.dialog} aria-labelledby="registration-title"
+      onClose={() => { setOpen(false); setData({ ...emptyRegistration }); setErrors({}); trigger.current?.focus(); }}
       onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
-      <div className={styles.shell}>
+      <form className={styles.shell} noValidate onSubmit={event => { event.preventDefault(); advance(); }}>
         <header className={styles.header}></header>
         <div className={styles.tabs} role="group" aria-label="Режим просмотра">
           <button type="button" disabled={finished} aria-pressed={mode === "registration"} onClick={() => switchMode("registration")}>Регистрация</button>
@@ -110,29 +143,22 @@ export default function RegistrationDialog() {
               <span className={styles.productIcon} aria-hidden="true">{item.icon}</span>
               <span><strong>{item.title}</strong></span>
             </label>)}
-          </fieldset> : <>
-            {(mode === "login" || step === 1) && <label className={styles.field}>Вымышленный профиль
+          </fieldset> : mode === "registration" && step === 1 ? <RegistrationFields data={data} errors={errors} onChange={updateField} today={today} /> : <>
+            {mode === "login" && <label className={styles.field}>Тестовый профиль
               <select value={profileIndex} onChange={event => setProfileIndex(Number(event.target.value))}>{profiles.map((item, index) => <option key={item.id} value={index}>{item.name}</option>)}</select>
             </label>}
             {mode === "registration" && step === 2 && <div className={styles.summary}><span>Продукт</span><strong>{products[product].title}</strong></div>}
-            <dl className={styles.details}>{fields.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-            {mode === "registration" && <label className={styles.field}>Занятость — пример
-              {step === 1 ? <select value={occupation} onChange={event => setOccupation(event.target.value)}>{occupations.map(item => <option key={item}>{item}</option>)}</select> : <span className={styles.readOnly}>{occupation}</span>}
-            </label>}
-            <p className={styles.hint}>{mode === "login" ? "Тестовый вход не использует пароль или коды подтверждения." : "Поля профиля предназначены только для просмотра. Документы и KYC здесь не запрашиваются."}</p>
+            <dl className={styles.details}>{(mode === "registration" ? registrationSummary(data) : fields).map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+            {/* <p className={styles.hint}>{mode === "login" ? "Тестовый вход не использует пароль или коды подтверждения." : "Поля профиля предназначены только для просмотра. Документы и KYC здесь не запрашиваются."}</p> */}
           </>}
         </div>
         <footer className={styles.footer}>
           <div className={styles.actions}>
             {!finished && mode === "registration" && step > 0 && <button type="button" className={styles.back} onClick={() => setStep(step - 1)}>Назад</button>}
-            <button type="button" className={styles.next} onClick={() => {
-              if (finished) router.replace(destination);
-              else if (mode === "login" || step === 2) setFinished(true);
-              else setStep(step + 1);
-            }}>{finished ? "Перейти в кабинет" : mode === "login" ? "Просмотреть профиль" : step === 2 ? "Завершить просмотр" : "Далее"}<span aria-hidden="true">→</span></button>
+            <button type="submit" className={styles.next}>{finished ? "Перейти в кабинет" : mode === "login" ? "Просмотреть профиль" : step === 2 ? "Подтвердить и продолжить" : "Далее"}<span aria-hidden="true">→</span></button>
           </div>
         </footer>
-      </div>
+      </form>
     </dialog>, document.body)}
   </>;
 }

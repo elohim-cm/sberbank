@@ -59,7 +59,6 @@ export default function RegistrationPage() {
           <Link href="/ru/person#questions">Помощь и поддержка <Arrow /></Link>
         </nav>
       </section>
-      <p className={styles.disclosure}>Независимый проект. Не связан со СберБанком.</p>
     </main>
   );
 }

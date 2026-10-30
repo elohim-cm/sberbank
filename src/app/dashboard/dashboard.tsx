@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import { dashboardHref, testProfiles, type ProductKind } from "../test-profiles";
 import Icon, { type IconName } from "./icons";
 import styles from "./dashboard.module.css";
+import VerificationDialog from "./verification-dialog";
+import { isKycPending, markKycPending, serverKycPending, subscribeKycStatus } from "./kyc-status";
+import { clearLocalProfiles, getLocalProfile, serverLocalProfile, subscribeLocalProfiles, type DashboardProfile } from "../inscription/registration-data";
 
 const navigation = [
   { id: "home", label: "Главная", icon: "home" },
@@ -21,23 +24,26 @@ const navigation = [
 type Section = typeof navigation[number]["id"];
 type Period = "week" | "month" | "year";
 type Overlay = "verification" | "more" | "security" | "settings" | null;
-type Fixture = typeof testProfiles[number];
+type Fixture = DashboardProfile;
 type Money = (value: number) => string;
 type Brand = { logo: string; name: string };
 const currency = new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 });
 const transactions: { id: number; title: string; date: string; amount: number; icon: IconName }[] = [
-  { id: 1, title: "Покупка · пример", date: "28 октября 2026", amount: -4200, icon: "cart" },
-  { id: 2, title: "Пополнение · пример", date: "25 октября 2026", amount: 20000, icon: "plus" },
-  { id: 3, title: "Возврат · пример", date: "18 октября 2026", amount: 1500, icon: "refund" },
-  { id: 4, title: "Покупка · пример", date: "12 октября 2026", amount: -7350, icon: "cart" },
+  { id: 1, title: "Покупка ", date: "28 октября 2026", amount: -4200, icon: "cart" },
+  { id: 2, title: "Пополнение ", date: "25 октября 2026", amount: 20000, icon: "plus" },
+  { id: 3, title: "Возврат ", date: "18 октября 2026", amount: 1500, icon: "refund" },
+  { id: 4, title: "Покупка ", date: "12 октября 2026", amount: -7350, icon: "cart" },
 ];
 
 export default function Dashboard({ brand }: { brand: Brand }) {
   const params = useSearchParams();
-  const profile = testProfiles.find(item => item.id === params.get("profile")) ?? testProfiles[0];
+  const requestedProfile = params.get("profile") ?? "01";
+  const localProfile = useSyncExternalStore(subscribeLocalProfiles, () => getLocalProfile(requestedProfile), serverLocalProfile);
+  const profile = localProfile ?? testProfiles.find(item => item.id === requestedProfile) ?? testProfiles[0];
   const requestedProduct = params.get("product");
   const product: ProductKind = requestedProduct === "virtual" || requestedProduct === "credit" ? requestedProduct : profile.product;
   const section: Section = navigation.find(item => item.id === params.get("section"))?.id ?? "home";
+  if (requestedProfile.startsWith("local-") && !localProfile) return <main className={styles.loading}><p>Временный профиль недоступен. Заполните форму регистрации заново.</p><Link href="/inscription">Вернуться к регистрации</Link></main>;
   return <DashboardView key={profile.id} profile={profile} product={product} section={section} brand={brand} />;
 }
 
@@ -46,6 +52,7 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
   const [period, setPeriod] = useState<Period>("month");
   const [profileOpen, setProfileOpen] = useState(false);
   const [overlay, setOverlay] = useState<Overlay>(null);
+  const verificationPending = useSyncExternalStore(subscribeKycStatus, () => isKycPending(profile.id), serverKycPending);
   const profileRoot = useRef<HTMLDivElement>(null);
   const profileButton = useRef<HTMLButtonElement>(null);
   const infoDialog = useRef<HTMLDialogElement>(null);
@@ -55,6 +62,7 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
   const productTitle = product === "credit" ? "Кредитная карта" : "Виртуальная карта";
   const href = (target: Section) => dashboardHref(profile.id, product, target);
   const money: Money = value => hidden ? "•••• ₽" : currency.format(value);
+  const isLocalProfile = profile.id.startsWith("local-");
 
   useEffect(() => { pageTitle.current?.focus(); }, [section]);
 
@@ -68,7 +76,7 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
   }, [profileOpen]);
 
   useEffect(() => {
-    if (!overlay) return;
+    if (!overlay || overlay === "verification") return;
     const dialog = infoDialog.current;
     const previous = document.body.style.overflow;
     dialog?.showModal();
@@ -81,13 +89,16 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
     return <Link key={item.id} href={href(item.id)} className={`${mobile ? styles.mobileNavLink : styles.navLink} ${section === item.id ? styles.active : ""}`} aria-current={section === item.id ? "page" : undefined} onClick={() => { setProfileOpen(false); setOverlay(null); }}><Icon name={item.icon} /><span>{mobile ? ({ home: "Главная", cards: "Карта", accounts: "Счёт", transactions: "Операции" } as Record<string, string>)[item.id] ?? item.label : item.label}</span></Link>;
   }
 
-  const card = <CardPanel profile={profile} product={product} money={money} />;
+  // No approved KYC status exists yet. Submission only changes the pending copy;
+  // restricted content stays locked until server-side approval is implemented.
+  const lockedMoney: Money = () => "•••• ₽";
+  const gate = (label: string, children: ReactNode) => <KycGate label={label} pending={verificationPending} onVerify={() => setOverlay("verification")}>{children}</KycGate>;
+  const card = gate("Карты", <CardPanel profile={{ ...profile, lastDigits: "••••" }} product={product} money={lockedMoney} />);
   return <div className={styles.dashboard}>
     <a href="#dashboard-main" className={styles.skipLink}>Перейти к содержимому</a>
     <aside className={styles.sidebar} aria-label="Боковая панель">
       <Link href={href("home")} className={styles.brand} aria-label={`${brand.name} — главная`}>
         <Image src={brand.logo} width={121} height={48} alt="СберБанк" unoptimized />
-        <span>{brand.name}</span>
       </Link>
       <nav className={styles.navigation} aria-label="Основные разделы">{navigation.slice(0, -1).map(item => navLink(item))}</nav>
       <div className={styles.sidebarBottom}>{navLink(navigation[7])}<p>Независимый проект<br />Тестовые данные</p></div>
@@ -96,26 +107,25 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
     <div className={styles.workspace}>
       <header className={styles.topbar}>
         <p className={styles.breadcrumb}>Личный кабинет <span>/</span> {section === "home" ? "Главная" : title}</p>
-        <Link href={href("home")} className={styles.mobileBrand} aria-label={`${brand.name} — главная`}><Image src={brand.logo} width={91} height={36} alt="СберБанк" unoptimized /><span>{brand.name}</span></Link>
+        <Link href={href("home")} className={styles.mobileBrand} aria-label={`${brand.name} — главная`}><Image src={brand.logo} width={91} height={36} alt="СберБанк" unoptimized /></Link>
         <div ref={profileRoot} className={styles.profileRoot}>
-          <button ref={profileButton} className={styles.profileButton} type="button" aria-expanded={profileOpen} aria-controls="dashboard-profile-menu" onClick={() => setProfileOpen(!profileOpen)}><Icon name="user" /><span className={styles.desktopProfile}>Тестовый профиль {profile.id}</span><span className={styles.mobileProfile}>Профиль {profile.id}</span><Icon name="chevron" size={17} /></button>
+          <button ref={profileButton} className={styles.profileButton} type="button" aria-expanded={profileOpen} aria-controls="dashboard-profile-menu" onClick={() => setProfileOpen(!profileOpen)}><Icon name="user" /><span className={styles.desktopProfile}>{isLocalProfile ? profile.name : `Тестовый профиль ${profile.id}`}</span><span className={styles.mobileProfile}>{isLocalProfile ? "Мой профиль" : `Профиль ${profile.id}`}</span><Icon name="chevron" size={17} /></button>
           {profileOpen && <nav id="dashboard-profile-menu" className={styles.profileMenu} aria-label="Меню профиля">
             <Link href={href("profile")} onClick={() => setProfileOpen(false)}><Icon name="user" size={19} /> Мой профиль</Link>
             <button type="button" onClick={() => setHidden(!hidden)}><Icon name={hidden ? "eye" : "eyeOff"} size={19} />{hidden ? "Показать суммы" : "Скрыть суммы"}</button>
             <button type="button" onClick={() => { setProfileOpen(false); setOverlay("settings"); }}><Icon name="settings" size={19} />Настройки</button>
             <button type="button" onClick={() => { setProfileOpen(false); setOverlay("security"); }}><Icon name="shield" size={19} />Безопасность</button>
             <span className={styles.language}>Язык интерфейса: Русский</span>
-            <Link href="/inscription"><Icon name="logout" size={19} />Выйти</Link>
+            <Link href="/inscription" onClick={clearLocalProfiles}><Icon name="logout" size={19} />Выйти</Link>
           </nav>}
         </div>
       </header>
-      <p className={styles.mobileDisclosure}>Тестовые данные · Независимый проект</p>
 
       <main id="dashboard-main" className={styles.main} tabIndex={-1}>
-        <section className={styles.kycBanner} aria-label="Статус проверки личности">
+        <section className={`${styles.kycBanner} ${verificationPending ? styles.kycPending : ""}`} aria-label="Статус проверки личности" aria-live="polite" aria-atomic="true">
           <Icon name="shield" size={27} className={styles.kycIcon} />
-          <div><h2>Подтвердите личность</h2><p>Просматривать разделы можно. Платежи доступны после проверки.</p></div>
-          <button type="button" onClick={() => setOverlay("verification")}>Пройти проверку</button>
+          <div><h2>{verificationPending ? "Документы получены. Проверка в процессе" : "Подтвердите личность"}</h2><p>{verificationPending ? "Служба поддержки рассматривает вашу заявку. Карты, счета и финансовые операции станут доступны после подтверждения личности." : "Карты, счета, кредит и финансовые операции доступны после подтверждения личности."}</p></div>
+          {!verificationPending && <button type="button" onClick={() => setOverlay("verification")}>Пройти проверку KYC</button>}
         </section>
         <div className={styles.pageHeading}><h1 ref={pageTitle} tabIndex={-1}>{title}</h1><span className={styles.productBadge}>{productTitle}<Icon name="chevron" size={17} /></span></div>
 
@@ -123,31 +133,30 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
           <div className={styles.topGrid}>
             <section className={`${styles.panel} ${styles.balancePanel}`} aria-labelledby="balance-title">
               <div className={styles.balanceLabel}><h2 id="balance-title">Общий баланс</h2><button className={styles.eyeButton} type="button" onClick={() => setHidden(!hidden)} aria-label={hidden ? "Показать суммы" : "Скрыть суммы"} aria-pressed={hidden}><Icon name={hidden ? "eyeOff" : "eye"} size={21} /></button></div>
-              <p className={styles.balance} data-testid="total-balance">{money(profile.balance)}</p>
-              <p className={styles.balanceCaption}>{product === "credit" ? "Доступно по выбранной карте" : "На выбранном счёте"}</p>
+              {gate("Общий баланс", <><p className={styles.balance} data-testid="total-balance">{lockedMoney(profile.balance)}</p><p className={styles.balanceCaption}>{product === "credit" ? "Доступно по выбранной карте" : "На выбранном счёте"}</p></>)}
               <div className={styles.quickActions} aria-label="Быстрые действия">
                 <button type="button" disabled title="Платежи недоступны до проверки личности"><Icon name="lock" /><span>Оплатить</span></button>
-                <button type="button" disabled title="Предпросмотр будет добавлен позже"><Icon name="plus" /><span>Пополнить</span></button>
-                <button type="button" disabled title="Предпросмотр будет добавлен позже"><Icon name="document" /><span>Реквизиты</span></button>
+                <button type="button" disabled title="Пополнение недоступно до подтверждения личности"><Icon name="lock" /><span>Пополнить</span></button>
+                <button type="button" disabled title="Реквизиты недоступны до подтверждения личности"><Icon name="lock" /><span>Реквизиты</span></button>
               </div>
             </section>
             {card}
           </div>
           <div className={styles.lowerGrid}>
-            <BalanceChart balance={profile.balance} period={period} onPeriod={setPeriod} hidden={hidden} money={money} />
-            <TransactionList money={money} href={href("transactions")} />
+            {gate("Динамика баланса", <BalanceChart balance={215000} period={period} onPeriod={setPeriod} hidden money={lockedMoney} />)}
+            <TransactionList money={money} href={href("transactions")} empty={isLocalProfile} />
           </div>
         </>}
 
         {section === "cards" && <div className={styles.singleProduct}>{card}</div>}
-        {section === "accounts" && <section className={`${styles.panel} ${styles.accountPanel}`}><div className={styles.sectionIcon}><Icon name="account" /></div><div><h2>Рублёвый счёт · •• {profile.lastDigits}</h2><p>Счёт выбранного продукта · Тестовые данные</p></div><strong>{money(profile.balance)}</strong><div className={styles.accountNote}><Icon name="lock" size={18} /> Платежи недоступны до проверки личности.</div></section>}
-        {section === "transactions" && <TransactionList money={money} />}
-        {section === "transfers" && <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="transfer" size={26} /></span><h2>Переводы пока недоступны</h2><p>Вы можете просматривать разделы. Для платежей и переводов нужна проверка личности.</p><button type="button" className={styles.outlineButton} onClick={() => setOverlay("verification")}>О проверке личности</button></section>}
-        {section === "credit" && (product === "credit" ? <div className={styles.singleProduct}>{card}</div> : <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="credit" size={26} /></span><h2>Кредитный продукт не выбран</h2><p>В кабинете отображается только ваша виртуальная карта.</p><Link href={href("cards")} className={styles.outlineButton}>К моей карте</Link></section>)}
-        {section === "profile" && <section className={`${styles.panel} ${styles.profilePanel}`}><h2>Мой профиль</h2><p className={styles.subtle}>Все сведения в этом профиле вымышлены.</p><dl className={styles.profileDetails}>{[["Полное имя", profile.name], ["Дата рождения", profile.birth], ["Город", profile.city], ["Адрес", profile.address], ["Электронная почта", profile.email], ["Телефон", profile.phone]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className={styles.accountNote}><Icon name="shield" size={18} />Личность не подтверждена</p></section>}
+        {section === "accounts" && gate("Счета", <section className={`${styles.panel} ${styles.accountPanel}`}><div className={styles.sectionIcon}><Icon name="account" /></div><div><h2>Рублёвый счёт · ••••</h2></div><strong>{lockedMoney(profile.balance)}</strong><div className={styles.accountNote}><Icon name="lock" size={18} /> Счета доступны после подтверждения личности.</div></section>)}
+        {section === "transactions" && <TransactionList money={money} empty={isLocalProfile} />}
+        {section === "transfers" && <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="transfer" size={26} /></span><h2>Переводы пока недоступны</h2><p>{verificationPending ? "Проверка личности в процессе. Переводы станут доступны после её одобрения." : "Для платежей и переводов необходимо подтвердить личность."}</p>{!verificationPending && <button type="button" className={styles.outlineButton} onClick={() => setOverlay("verification")}>Пройти проверку KYC</button>}</section>}
+        {section === "credit" && (product === "credit" ? <div className={styles.singleProduct}>{card}</div> : gate("Кредит", <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="credit" size={26} /></span><h2>Кредит</h2><p>Информация о кредитном продукте</p></section>))}
+        {section === "profile" && <section className={`${styles.panel} ${styles.profilePanel}`}><h2>Мой профиль</h2>{!isLocalProfile && <p className={styles.subtle}>Все сведения в этом профиле вымышлены.</p>}<dl className={styles.profileDetails}>{[["Полное имя", profile.name], ["Дата рождения", profile.birth], ["Город", profile.city], ["Адрес", profile.address], ["Электронная почта", profile.email], ["Телефон", profile.phone], ...(isLocalProfile ? [["Гражданство", profile.citizenship], ["Страна проживания", profile.residence], ["Занятость", profile.occupation], ["Ежемесячный доход", `${profile.income} ₽`]] : [])].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className={styles.accountNote}><Icon name="shield" size={18} />Личность не подтверждена</p></section>}
         {section === "help" && <section className={`${styles.panel} ${styles.helpPanel}`}><h2>Помощь по личному кабинету</h2>{[
           ["Как скрыть баланс?", "Нажмите на значок глаза рядом с общим балансом или выберите «Скрыть суммы» в меню профиля."],
-          ["Почему платежи недоступны?", "Статус проверки личности не подтверждён. Этот проект использует только тестовые данные и не выполняет банковские операции."],
+          ["Почему некоторые разделы недоступны?", "Карты, счета, кредит, баланс, график и финансовые операции доступны после одобрения проверки личности. Отправка документов не снимает ограничения. История операций, профиль и помощь остаются доступны."],
           ["Какие продукты отображаются?", "Только продукт, выбранный при регистрации. Для тестового входа используется продукт выбранного вымышленного профиля."],
         ].map(([question, answer]) => <details key={question}><summary>{question}<Icon name="chevron" size={18} /></summary><p>{answer}</p></details>)}</section>}
       </main>
@@ -155,14 +164,28 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
 
     <nav className={styles.mobileNav} aria-label="Мобильная навигация">{navigation.slice(0, 4).map(item => navLink(item, true))}<button className={`${styles.mobileNavLink} ${!["home", "cards", "accounts", "transactions"].includes(section) ? styles.active : ""}`} type="button" onClick={() => setOverlay("more")} aria-label="Открыть все разделы"><Icon name="more" /><span>Ещё</span></button></nav>
 
-    {overlay && <dialog ref={infoDialog} className={`${styles.infoDialog} ${overlay === "more" ? styles.moreDialog : ""}`} aria-labelledby="dashboard-dialog-title" onClose={() => setOverlay(null)} onClick={event => { if (event.target === event.currentTarget) setOverlay(null); }}>
-      <div className={styles.dialogHead}><h2 ref={infoTitle} id="dashboard-dialog-title" tabIndex={-1}>{overlay === "more" ? "Все разделы" : overlay === "verification" ? "Проверка личности" : overlay === "settings" ? "Настройки" : "Безопасность"}</h2><button type="button" aria-label="Закрыть окно" onClick={() => setOverlay(null)}><Icon name="close" /></button></div>
-      {overlay === "more" ? <nav aria-label="Все разделы">{navigation.map(item => navLink(item))}</nav> : overlay === "settings" ? <><div className={styles.settingsRow}><span>Скрывать суммы</span><button className={styles.settingToggle} type="button" aria-pressed={hidden} onClick={() => setHidden(!hidden)}>{hidden ? "Включено" : "Выключено"}<Icon name={hidden ? "eyeOff" : "eye"} size={19} /></button></div><p className={styles.subtle}>Язык интерфейса: Русский</p><p className={styles.subtle}>Настройки действуют только в текущем просмотре.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Готово</button></> : <><div className={styles.dialogSymbol}><Icon name={overlay === "verification" ? "shield" : "lock"} size={30} /></div><p>{overlay === "verification" ? "Проверка личности пока не подключена. Платежи и переводы остаются недоступны. Документы и фотографии здесь не запрашиваются." : "В этом кабинете используются только вымышленные профили. Пароли, SMS-коды и реальные персональные данные не запрашиваются и не сохраняются."}</p><p className={styles.subtle}>Независимый проект · Тестовые данные</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Понятно</button></>}
+    {overlay === "verification" && <VerificationDialog onClose={() => setOverlay(null)} onComplete={() => markKycPending(profile.id)} />}
+    {overlay && overlay !== "verification" && <dialog ref={infoDialog} className={`${styles.infoDialog} ${overlay === "more" ? styles.moreDialog : ""}`} aria-labelledby="dashboard-dialog-title" onClose={() => setOverlay(null)} onClick={event => { if (event.target === event.currentTarget) setOverlay(null); }}>
+      <div className={styles.dialogHead}><h2 ref={infoTitle} id="dashboard-dialog-title" tabIndex={-1}>{overlay === "more" ? "Все разделы" : overlay === "settings" ? "Настройки" : "Безопасность"}</h2><button type="button" aria-label="Закрыть окно" onClick={() => setOverlay(null)}><Icon name="close" /></button></div>
+      {overlay === "more" ? <nav aria-label="Все разделы">{navigation.map(item => navLink(item))}</nav> : overlay === "settings" ? <><div className={styles.settingsRow}><span>Скрывать суммы</span><button className={styles.settingToggle} type="button" aria-pressed={hidden} onClick={() => setHidden(!hidden)}>{hidden ? "Включено" : "Выключено"}<Icon name={hidden ? "eyeOff" : "eye"} size={19} /></button></div><p className={styles.subtle}>Язык интерфейса: Русский</p><p className={styles.subtle}>Настройки действуют только в текущем просмотре.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Готово</button></> : <><div className={styles.dialogSymbol}><Icon name="lock" size={30} /></div><p>В этом кабинете используются только вымышленные профили. Пароли, SMS-коды и реальные персональные данные не запрашиваются и не сохраняются.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Понятно</button></>}
     </dialog>}
   </div>;
 }
 
-function CardPanel({ profile, product, money }: { profile: Fixture; product: ProductKind; money: Money }) {
+function KycGate({ label, pending, onVerify, children }: { label: string; pending: boolean; onVerify: () => void; children: ReactNode }) {
+  const titleId = useId();
+  return <section className={styles.kycGate} aria-label={`${label}: доступ ограничен`}>
+    <div className={styles.lockedPreview} inert aria-hidden="true">{children}</div>
+    <div className={styles.lockOverlay}>
+      <span className={styles.lockSymbol} aria-hidden="true"><Icon name="lock" size={24} /></span>
+      <h2 id={titleId}>{pending ? "Проверка личности в процессе" : "Подтвердите личность"}</h2>
+      <p>Этот раздел станет доступен после подтверждения вашей личности.</p>
+      {!pending && <button type="button" onClick={onVerify} aria-describedby={titleId}>Пройти проверку KYC</button>}
+    </div>
+  </section>;
+}
+
+function CardPanel({ profile, product, money }: { profile: Omit<Fixture, "lastDigits"> & { lastDigits: string }; product: ProductKind; money: Money }) {
   return <section className={`${styles.panel} ${styles.cardPanel}`} aria-label="Выбранная карта">
     <div className={styles.bankCard}>
       <h2>{product === "credit" ? "Кредитная карта" : "Виртуальная карта"}</h2>
@@ -173,11 +196,11 @@ function CardPanel({ profile, product, money }: { profile: Fixture; product: Pro
     <div className={styles.cardInfo}>
       {product === "credit" ? <><dl className={styles.creditFacts}><div><dt>Лимит</dt><dd>{money(profile.limit)}</dd></div><div><dt>Использовано</dt><dd>{money(profile.used)}</dd></div><div><dt>Доступно</dt><dd className={styles.positive}>{money(profile.limit - profile.used)}</dd></div></dl><div className={styles.payment}><span>Ближайший платёж</span><strong>{money(profile.payment)}</strong><span className={styles.dueDate}>До 15 ноября</span></div></> : <><dl className={styles.creditFacts}><div><dt>Баланс</dt><dd className={styles.positive}>{money(profile.balance)}</dd></div><div><dt>Валюта</dt><dd>Рубль · RUB</dd></div><div><dt>Тип карты</dt><dd>Виртуальная</dd></div></dl><p className={styles.virtualNote}>Платежи доступны после проверки личности.</p></>}
     </div>
-    <p className={styles.cardDisclosure}>Тестовые данные · Независимый проект</p>
   </section>;
 }
 
-function TransactionList({ money, href }: { money: Money; href?: string }) {
+function TransactionList({ money, href, empty = false }: { money: Money; href?: string; empty?: boolean }) {
+  if (empty) return <section className={`${styles.panel} ${styles.transactionPanel}`} aria-labelledby="transactions-title"><h2 id="transactions-title">История операций</h2><p className={styles.subtle}>Операций пока нет.</p></section>;
   return <section className={`${styles.panel} ${styles.transactionPanel}`} aria-labelledby="transactions-title"><h2 id="transactions-title">Пример истории операций</h2><ul className={styles.transactions}>{transactions.map(item => <li key={item.id}><span className={`${styles.transactionIcon} ${item.amount > 0 ? styles.incoming : ""}`}><Icon name={item.icon} size={20} /></span><div className={styles.transactionDescription}><strong>{item.title}</strong><time dateTime={`2026-10-${item.id === 1 ? "28" : item.id === 2 ? "25" : item.id === 3 ? "18" : "12"}`}>{item.date}</time></div><span className={`${styles.transactionAmount} ${item.amount > 0 ? styles.positive : ""}`}>{item.amount > 0 ? "+ " : "− "}{money(Math.abs(item.amount))}</span></li>)}</ul>{href && <Link className={styles.allTransactions} href={href}>Все операции <Icon name="arrow" size={19} /></Link>}</section>;
 }
 
