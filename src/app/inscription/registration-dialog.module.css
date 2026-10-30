@@ -69,6 +69,8 @@
 .next, .back { min-height: 46px; padding: 12px 20px; border: 0; border-radius: 13px; font: 600 14px/20px Arial, sans-serif; }
 .next { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 12px; color: #fff; background: #00a947; }
 .next:hover { background: #008e3c; }
+.next:disabled, .back:disabled { opacity: .6; cursor: wait; }
+.footer .submitError { color: #a52c2c; }
 .back { color: #21583e; background: #edf6f0; }
 .dialog :where(button, select, input):focus-visible { outline: 2px solid #007b42; outline-offset: 3px; }
 .srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

@@ -53,30 +53,6 @@ export function registrationSummary(data: RegistrationData): [string, string][] 
 export type DashboardProfile = {
   id: string; name: string; birth: string; city: string; address: string; email: string; phone: string;
   product: ProductKind; balance: number; limit: number; used: number; payment: number; lastDigits: string;
+  firstName?: string; lastName?: string;
   citizenship?: string; residence?: string; occupation?: string; income?: string;
 };
-
-// Frontend-only profile, held in memory. No personal data is stored in the URL,
-// browser storage, or sent to an API. Reloading ends this temporary session.
-const localProfiles = new Map<string, DashboardProfile>();
-const listeners = new Set<() => void>();
-export function subscribeLocalProfiles(listener: () => void) {
-  listeners.add(listener);
-  return () => { listeners.delete(listener); };
-}
-export function getLocalProfile(id: string) { return localProfiles.get(id); }
-export const serverLocalProfile = () => undefined;
-export function clearLocalProfiles() { localProfiles.clear(); listeners.forEach(listener => listener()); }
-
-export function createLocalProfile(data: RegistrationData, product: ProductKind): DashboardProfile {
-  const profile: DashboardProfile = {
-    id: `local-${crypto.randomUUID()}`, name: `${data.lastName.trim()} ${data.firstName.trim()}`,
-    birth: registrationSummary(data).find(([label]) => label === "Дата рождения")![1],
-    city: data.city.trim(), address: data.address.trim(), email: data.email.trim(), phone: data.phone.trim(),
-    citizenship: data.citizenship.trim(), residence: data.residence.trim(), occupation: data.occupation, income: data.income.trim(),
-    product, balance: 0, limit: 0, used: 0, payment: 0, lastDigits: "••••",
-  };
-  localProfiles.set(profile.id, profile);
-  listeners.forEach(listener => listener());
-  return profile;
-}

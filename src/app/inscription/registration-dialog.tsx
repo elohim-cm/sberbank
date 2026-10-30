@@ -2,45 +2,36 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
-import { dashboardHref, testProfiles as profiles } from "../test-profiles";
 import pageStyles from "./registration.module.css";
 import styles from "./registration-dialog.module.css";
 import RegistrationFields from "./registration-fields";
-import { createLocalProfile, emptyRegistration, registrationSummary, validateRegistration, type RegistrationData, type RegistrationErrors } from "./registration-data";
+import { emptyRegistration, registrationSummary, validateRegistration, type RegistrationData, type RegistrationErrors } from "./registration-data";
 
-// Editable registration is local to this frontend session; no backend is connected.
 const products = [
   { title: "Виртуальная карта", icon: "▱" },
   { title: "Кредитная карта", icon: "+" },
 ];
 const steps = ["Продукт", "Профиль", "Подтверждение"];
+const calendarToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Douala", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
 export default function RegistrationDialog() {
-  const router = useRouter();
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const stepTitle = useRef<HTMLHeadingElement>(null);
   const focusFirstError = useRef(false);
+  const requestPending = useRef(false);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"registration" | "login">("registration");
   const [step, setStep] = useState(0);
   const [product, setProduct] = useState(0);
-  const [profileIndex, setProfileIndex] = useState(0);
   const [data, setData] = useState<RegistrationData>({ ...emptyRegistration });
   const [errors, setErrors] = useState<RegistrationErrors>({});
-  const [registeredId, setRegisteredId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [finished, setFinished] = useState(false);
-  const profile = profiles[profileIndex];
-  const destination = dashboardHref(mode === "registration" ? registeredId ?? "new" : profile.id, mode === "registration" ? (product === 1 ? "credit" : "virtual") : profile.product);
-  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Douala", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-  const fields = [
-    ["Полное имя", profile.name], ["Дата рождения", profile.birth],
-    ["Гражданство", "РФ — пример"], ["Страна проживания", "Россия — пример"],
-    ["Город", profile.city], ["Адрес", profile.address],
-    ["Электронная почта", profile.email], ["Телефон", profile.phone],
-  ];
+  const destination = "/dashboard";
+  const [today, setToday] = useState("");
 
   useEffect(() => {
     if (!open) return;
@@ -60,13 +51,11 @@ export default function RegistrationDialog() {
   useEffect(() => {
     if (!finished || !open) return;
     const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 500 : 1150;
-    const timer = window.setTimeout(() => router.replace(destination), delay);
+    // A full navigation discards any dashboard cached before the session cookie.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+    const timer = window.setTimeout(() => window.location.assign(destination), delay);
     return () => window.clearTimeout(timer);
-  }, [finished, open, destination, router]);
-
-  useEffect(() => {
-    if (open && (mode === "login" || registeredId)) router.prefetch(destination);
-  }, [open, destination, router, mode, registeredId]);
+  }, [finished, open, destination]);
 
   useEffect(() => {
     if (!focusFirstError.current) return;
@@ -80,28 +69,48 @@ export default function RegistrationDialog() {
     if (errors[key]) setErrors(previous => { const next = { ...previous }; delete next[key]; return next; });
   }
 
-  function advance() {
-    if (finished) { router.replace(destination); return; }
-    if (mode === "login") { setFinished(true); return; }
-    if (step === 1 || step === 2) {
-      const nextErrors = validateRegistration(data, today);
+  async function advance() {
+    if (requestPending.current) return;
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- Discard the pre-authentication client cache.
+    if (finished) { window.location.assign(destination); return; }
+    if (mode === "registration" && (step === 1 || step === 2)) {
+      const nextErrors = validateRegistration(data, calendarToday());
       if (Object.keys(nextErrors).length) { focusFirstError.current = true; setErrors(nextErrors); setStep(1); return; }
     }
-    if (step === 2) {
-      const localProfile = createLocalProfile(data, product === 1 ? "credit" : "virtual");
-      setRegisteredId(localProfile.id);
+    if (mode === "registration" && step < 2) { setStep(step + 1); return; }
+    requestPending.current = true;
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const response = await fetch(mode === "registration" ? "/api/accounts" : "/api/account", {
+        method: mode === "registration" ? "POST" : "GET",
+        headers: mode === "registration" ? { "Content-Type": "application/json" } : undefined,
+        body: mode === "registration" ? JSON.stringify({ ...data, product: product === 1 ? "credit" : "virtual" }) : undefined,
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        if (mode === "registration" && result.errors) { focusFirstError.current = true; setErrors(result.errors); setStep(1); }
+        throw new Error(response.status === 401 ? "Сеанс не найден. Зарегистрируйтесь, чтобы открыть личный кабинет. Восстановление доступа будет доступно позже." : result.message || "Не удалось сохранить профиль. Повторите попытку.");
+      }
+      if (!result.profile?.id) throw new Error("Не удалось подтвердить сохранение профиля.");
       setFinished(true);
-    } else setStep(step + 1);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Нет соединения с сервером. Повторите попытку.");
+    } finally {
+      requestPending.current = false;
+      setSubmitting(false);
+    }
   }
 
   function show() {
+    setToday(calendarToday());
     setMode("registration");
     setStep(0);
     setProduct(0);
-    setProfileIndex(0);
     setData({ ...emptyRegistration });
     setErrors({});
-    setRegisteredId(null);
+    setSubmitError("");
     setFinished(false);
     setOpen(true);
   }
@@ -110,22 +119,24 @@ export default function RegistrationDialog() {
     setMode(next);
     setStep(0);
     setFinished(false);
+    setSubmitError("");
   }
 
-  const title = finished ? (mode === "registration" ? "Профиль подготовлен" : "Вход выполнен успешно") : mode === "login" ? "Выберите тестовый профиль" : ["Выберите продукт", "Личные сведения", "Проверьте ваши данные"][step];
+  const title = finished ? (mode === "registration" ? "Регистрация завершена" : "Вход выполнен успешно") : mode === "login" ? "Открыть личный кабинет" : ["Выберите продукт", "Личные сведения", "Проверьте ваши данные"][step];
 
   return <>
     <button ref={trigger} className={pageStyles.primary} type="button" onClick={show} aria-haspopup="dialog" aria-controls="registration-dialog">
       Создать личный кабинет <span aria-hidden="true">→</span>
     </button>
     {open && createPortal(<dialog id="registration-dialog" ref={dialog} className={styles.dialog} aria-labelledby="registration-title"
+      onCancel={event => { if (requestPending.current) event.preventDefault(); }}
       onClose={() => { setOpen(false); setData({ ...emptyRegistration }); setErrors({}); trigger.current?.focus(); }}
-      onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
-      <form className={styles.shell} noValidate onSubmit={event => { event.preventDefault(); advance(); }}>
+      onClick={event => { if (!requestPending.current && event.target === event.currentTarget) dialog.current?.close(); }}>
+      <form className={styles.shell} noValidate aria-busy={submitting} onSubmit={event => { event.preventDefault(); void advance(); }}>
         <header className={styles.header}></header>
         <div className={styles.tabs} role="group" aria-label="Режим просмотра">
-          <button type="button" disabled={finished} aria-pressed={mode === "registration"} onClick={() => switchMode("registration")}>Регистрация</button>
-          <button type="button" disabled={finished} aria-pressed={mode === "login"} onClick={() => switchMode("login")}>Вход</button>
+          <button type="button" disabled={finished || submitting} aria-pressed={mode === "registration"} onClick={() => switchMode("registration")}>Регистрация</button>
+          <button type="button" disabled={finished || submitting} aria-pressed={mode === "login"} onClick={() => switchMode("login")}>Вход</button>
         </div>
         <div className={styles.content} ref={content}>
           {mode === "registration" && !finished && <ol className={styles.steps} aria-label="Этапы просмотра">{steps.map((label, index) => <li key={label} aria-current={step === index ? "step" : undefined}><span>{index + 1}</span>{label}</li>)}</ol>}
@@ -143,19 +154,16 @@ export default function RegistrationDialog() {
               <span className={styles.productIcon} aria-hidden="true">{item.icon}</span>
               <span><strong>{item.title}</strong></span>
             </label>)}
-          </fieldset> : mode === "registration" && step === 1 ? <RegistrationFields data={data} errors={errors} onChange={updateField} today={today} /> : <>
-            {mode === "login" && <label className={styles.field}>Тестовый профиль
-              <select value={profileIndex} onChange={event => setProfileIndex(Number(event.target.value))}>{profiles.map((item, index) => <option key={item.id} value={index}>{item.name}</option>)}</select>
-            </label>}
+          </fieldset> : mode === "registration" && step === 1 ? <RegistrationFields data={data} errors={errors} onChange={updateField} today={today} /> : mode === "login" ? <p className={styles.hint}>Если вы уже зарегистрировались в этом браузере, продолжите вход в текущий сеанс.</p> : <>
             {mode === "registration" && step === 2 && <div className={styles.summary}><span>Продукт</span><strong>{products[product].title}</strong></div>}
-            <dl className={styles.details}>{(mode === "registration" ? registrationSummary(data) : fields).map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-            {/* <p className={styles.hint}>{mode === "login" ? "Тестовый вход не использует пароль или коды подтверждения." : "Поля профиля предназначены только для просмотра. Документы и KYC здесь не запрашиваются."}</p> */}
+            <dl className={styles.details}>{registrationSummary(data).map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
           </>}
         </div>
         <footer className={styles.footer}>
+          {submitError && <p className={styles.submitError} role="alert">{submitError}</p>}
           <div className={styles.actions}>
-            {!finished && mode === "registration" && step > 0 && <button type="button" className={styles.back} onClick={() => setStep(step - 1)}>Назад</button>}
-            <button type="submit" className={styles.next}>{finished ? "Перейти в кабинет" : mode === "login" ? "Просмотреть профиль" : step === 2 ? "Подтвердить и продолжить" : "Далее"}<span aria-hidden="true">→</span></button>
+            {!finished && mode === "registration" && step > 0 && <button type="button" disabled={submitting} className={styles.back} onClick={() => setStep(step - 1)}>Назад</button>}
+            <button type="submit" disabled={submitting} className={styles.next}>{submitting ? "Сохраняем данные…" : finished ? "Перейти в кабинет" : mode === "login" ? "Продолжить вход" : step === 2 ? "Подтвердить и продолжить" : "Далее"}<span aria-hidden="true">→</span></button>
           </div>
         </footer>
       </form>

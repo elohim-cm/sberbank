@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
-import { dashboardHref, testProfiles, type ProductKind } from "../test-profiles";
+import { dashboardHref, type ProductKind } from "../test-profiles";
 import Icon, { type IconName } from "./icons";
 import styles from "./dashboard.module.css";
 import VerificationDialog from "./verification-dialog";
 import { isKycPending, markKycPending, serverKycPending, subscribeKycStatus } from "./kyc-status";
-import { clearLocalProfiles, getLocalProfile, serverLocalProfile, subscribeLocalProfiles, type DashboardProfile } from "../inscription/registration-data";
+import type { DashboardProfile } from "../inscription/registration-data";
 
 const navigation = [
   { id: "home", label: "Главная", icon: "home" },
@@ -35,15 +35,10 @@ const transactions: { id: number; title: string; date: string; amount: number; i
   { id: 4, title: "Покупка ", date: "12 октября 2026", amount: -7350, icon: "cart" },
 ];
 
-export default function Dashboard({ brand }: { brand: Brand }) {
+export default function Dashboard({ brand, profile }: { brand: Brand; profile: DashboardProfile }) {
   const params = useSearchParams();
-  const requestedProfile = params.get("profile") ?? "01";
-  const localProfile = useSyncExternalStore(subscribeLocalProfiles, () => getLocalProfile(requestedProfile), serverLocalProfile);
-  const profile = localProfile ?? testProfiles.find(item => item.id === requestedProfile) ?? testProfiles[0];
-  const requestedProduct = params.get("product");
-  const product: ProductKind = requestedProduct === "virtual" || requestedProduct === "credit" ? requestedProduct : profile.product;
+  const product = profile.product;
   const section: Section = navigation.find(item => item.id === params.get("section"))?.id ?? "home";
-  if (requestedProfile.startsWith("local-") && !localProfile) return <main className={styles.loading}><p>Временный профиль недоступен. Заполните форму регистрации заново.</p><Link href="/inscription">Вернуться к регистрации</Link></main>;
   return <DashboardView key={profile.id} profile={profile} product={product} section={section} brand={brand} />;
 }
 
@@ -62,7 +57,20 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
   const productTitle = product === "credit" ? "Кредитная карта" : "Виртуальная карта";
   const href = (target: Section) => dashboardHref(profile.id, product, target);
   const money: Money = value => hidden ? "•••• ₽" : currency.format(value);
-  const isLocalProfile = profile.id.startsWith("local-");
+  const [loggingOut, setLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
+
+  async function logout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    setLogoutError("");
+    try {
+      const response = await fetch("/api/account", { method: "DELETE" });
+      if (!response.ok) throw new Error("logout");
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- Discard cached authenticated pages after revoking the session.
+      window.location.assign("/inscription");
+    } catch { setLogoutError("Не удалось выйти. Повторите попытку."); setLoggingOut(false); }
+  }
 
   useEffect(() => { pageTitle.current?.focus(); }, [section]);
 
@@ -109,14 +117,15 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
         <p className={styles.breadcrumb}>Личный кабинет <span>/</span> {section === "home" ? "Главная" : title}</p>
         <Link href={href("home")} className={styles.mobileBrand} aria-label={`${brand.name} — главная`}><Image src={brand.logo} width={91} height={36} alt="СберБанк" unoptimized /></Link>
         <div ref={profileRoot} className={styles.profileRoot}>
-          <button ref={profileButton} className={styles.profileButton} type="button" aria-expanded={profileOpen} aria-controls="dashboard-profile-menu" onClick={() => setProfileOpen(!profileOpen)}><Icon name="user" /><span className={styles.desktopProfile}>{isLocalProfile ? profile.name : `Тестовый профиль ${profile.id}`}</span><span className={styles.mobileProfile}>{isLocalProfile ? "Мой профиль" : `Профиль ${profile.id}`}</span><Icon name="chevron" size={17} /></button>
+          <button ref={profileButton} className={styles.profileButton} type="button" aria-expanded={profileOpen} aria-controls="dashboard-profile-menu" onClick={() => setProfileOpen(!profileOpen)}><Icon name="user" /><span className={styles.desktopProfile}>{profile.name}</span><span className={styles.mobileProfile}>Мой профиль</span><Icon name="chevron" size={17} /></button>
           {profileOpen && <nav id="dashboard-profile-menu" className={styles.profileMenu} aria-label="Меню профиля">
             <Link href={href("profile")} onClick={() => setProfileOpen(false)}><Icon name="user" size={19} /> Мой профиль</Link>
             <button type="button" onClick={() => setHidden(!hidden)}><Icon name={hidden ? "eye" : "eyeOff"} size={19} />{hidden ? "Показать суммы" : "Скрыть суммы"}</button>
             <button type="button" onClick={() => { setProfileOpen(false); setOverlay("settings"); }}><Icon name="settings" size={19} />Настройки</button>
             <button type="button" onClick={() => { setProfileOpen(false); setOverlay("security"); }}><Icon name="shield" size={19} />Безопасность</button>
             <span className={styles.language}>Язык интерфейса: Русский</span>
-            <Link href="/inscription" onClick={clearLocalProfiles}><Icon name="logout" size={19} />Выйти</Link>
+            <button type="button" disabled={loggingOut} onClick={() => void logout()}><Icon name="logout" size={19} />{loggingOut ? "Выходим…" : "Выйти"}</button>
+            {logoutError && <p className={styles.subtle} role="alert">{logoutError}</p>}
           </nav>}
         </div>
       </header>
@@ -144,20 +153,20 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
           </div>
           <div className={styles.lowerGrid}>
             {gate("Динамика баланса", <BalanceChart balance={215000} period={period} onPeriod={setPeriod} hidden money={lockedMoney} />)}
-            <TransactionList money={money} href={href("transactions")} empty={isLocalProfile} />
+            <TransactionList money={money} href={href("transactions")} empty />
           </div>
         </>}
 
         {section === "cards" && <div className={styles.singleProduct}>{card}</div>}
         {section === "accounts" && gate("Счета", <section className={`${styles.panel} ${styles.accountPanel}`}><div className={styles.sectionIcon}><Icon name="account" /></div><div><h2>Рублёвый счёт · ••••</h2></div><strong>{lockedMoney(profile.balance)}</strong><div className={styles.accountNote}><Icon name="lock" size={18} /> Счета доступны после подтверждения личности.</div></section>)}
-        {section === "transactions" && <TransactionList money={money} empty={isLocalProfile} />}
+        {section === "transactions" && <TransactionList money={money} empty />}
         {section === "transfers" && <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="transfer" size={26} /></span><h2>Переводы пока недоступны</h2><p>{verificationPending ? "Проверка личности в процессе. Переводы станут доступны после её одобрения." : "Для платежей и переводов необходимо подтвердить личность."}</p>{!verificationPending && <button type="button" className={styles.outlineButton} onClick={() => setOverlay("verification")}>Пройти проверку KYC</button>}</section>}
         {section === "credit" && (product === "credit" ? <div className={styles.singleProduct}>{card}</div> : gate("Кредит", <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="credit" size={26} /></span><h2>Кредит</h2><p>Информация о кредитном продукте</p></section>))}
-        {section === "profile" && <section className={`${styles.panel} ${styles.profilePanel}`}><h2>Мой профиль</h2>{!isLocalProfile && <p className={styles.subtle}>Все сведения в этом профиле вымышлены.</p>}<dl className={styles.profileDetails}>{[["Полное имя", profile.name], ["Дата рождения", profile.birth], ["Город", profile.city], ["Адрес", profile.address], ["Электронная почта", profile.email], ["Телефон", profile.phone], ...(isLocalProfile ? [["Гражданство", profile.citizenship], ["Страна проживания", profile.residence], ["Занятость", profile.occupation], ["Ежемесячный доход", `${profile.income} ₽`]] : [])].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className={styles.accountNote}><Icon name="shield" size={18} />Личность не подтверждена</p></section>}
+        {section === "profile" && <section className={`${styles.panel} ${styles.profilePanel}`}><h2>Мой профиль</h2><dl className={styles.profileDetails}>{[["Фамилия", profile.lastName], ["Имя", profile.firstName], ["Дата рождения", profile.birth], ["Город", profile.city], ["Адрес", profile.address], ["Электронная почта", profile.email], ["Телефон", profile.phone], ["Гражданство", profile.citizenship], ["Страна проживания", profile.residence], ["Занятость", profile.occupation], ["Ежемесячный доход", `${profile.income} ₽`]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className={styles.accountNote}><Icon name="shield" size={18} />Личность не подтверждена</p></section>}
         {section === "help" && <section className={`${styles.panel} ${styles.helpPanel}`}><h2>Помощь по личному кабинету</h2>{[
           ["Как скрыть баланс?", "Нажмите на значок глаза рядом с общим балансом или выберите «Скрыть суммы» в меню профиля."],
           ["Почему некоторые разделы недоступны?", "Карты, счета, кредит, баланс, график и финансовые операции доступны после одобрения проверки личности. Отправка документов не снимает ограничения. История операций, профиль и помощь остаются доступны."],
-          ["Какие продукты отображаются?", "Только продукт, выбранный при регистрации. Для тестового входа используется продукт выбранного вымышленного профиля."],
+          ["Какие продукты отображаются?", "В кабинете отображается продукт, выбранный вами при регистрации."],
         ].map(([question, answer]) => <details key={question}><summary>{question}<Icon name="chevron" size={18} /></summary><p>{answer}</p></details>)}</section>}
       </main>
     </div>
@@ -167,7 +176,7 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
     {overlay === "verification" && <VerificationDialog onClose={() => setOverlay(null)} onComplete={() => markKycPending(profile.id)} />}
     {overlay && overlay !== "verification" && <dialog ref={infoDialog} className={`${styles.infoDialog} ${overlay === "more" ? styles.moreDialog : ""}`} aria-labelledby="dashboard-dialog-title" onClose={() => setOverlay(null)} onClick={event => { if (event.target === event.currentTarget) setOverlay(null); }}>
       <div className={styles.dialogHead}><h2 ref={infoTitle} id="dashboard-dialog-title" tabIndex={-1}>{overlay === "more" ? "Все разделы" : overlay === "settings" ? "Настройки" : "Безопасность"}</h2><button type="button" aria-label="Закрыть окно" onClick={() => setOverlay(null)}><Icon name="close" /></button></div>
-      {overlay === "more" ? <nav aria-label="Все разделы">{navigation.map(item => navLink(item))}</nav> : overlay === "settings" ? <><div className={styles.settingsRow}><span>Скрывать суммы</span><button className={styles.settingToggle} type="button" aria-pressed={hidden} onClick={() => setHidden(!hidden)}>{hidden ? "Включено" : "Выключено"}<Icon name={hidden ? "eyeOff" : "eye"} size={19} /></button></div><p className={styles.subtle}>Язык интерфейса: Русский</p><p className={styles.subtle}>Настройки действуют только в текущем просмотре.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Готово</button></> : <><div className={styles.dialogSymbol}><Icon name="lock" size={30} /></div><p>В этом кабинете используются только вымышленные профили. Пароли, SMS-коды и реальные персональные данные не запрашиваются и не сохраняются.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Понятно</button></>}
+      {overlay === "more" ? <nav aria-label="Все разделы">{navigation.map(item => navLink(item))}</nav> : overlay === "settings" ? <><div className={styles.settingsRow}><span>Скрывать суммы</span><button className={styles.settingToggle} type="button" aria-pressed={hidden} onClick={() => setHidden(!hidden)}>{hidden ? "Включено" : "Выключено"}<Icon name={hidden ? "eyeOff" : "eye"} size={19} /></button></div><p className={styles.subtle}>Язык интерфейса: Русский</p><p className={styles.subtle}>Настройки действуют только в текущем просмотре.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Готово</button></> : <><div className={styles.dialogSymbol}><Icon name="lock" size={30} /></div><p>Доступ к вашему профилю защищён сеансом в этом браузере. После выхода сеанс завершается. Не передавайте доступ к браузеру посторонним.</p><button className={styles.dialogDone} type="button" onClick={() => setOverlay(null)}>Понятно</button></>}
     </dialog>}
   </div>;
 }
