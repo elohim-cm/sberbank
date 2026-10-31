@@ -6,6 +6,8 @@ import { currentAccount, dashboardProfile } from "@/lib/server/accounts";
 import Dashboard from "./dashboard";
 import branding from "../header-data.json";
 import styles from "./dashboard.module.css";
+import { accountOperations } from "@/lib/server/account-operations";
+import type { AccountOperations } from "@/lib/account-operations";
 
 export const metadata: Metadata = {
   title: `Личный кабинет — ${branding.appButtonTitle}`,
@@ -21,5 +23,8 @@ async function AccountDashboard() {
   try { account = await currentAccount(); }
   catch { return <main className={styles.loading}><p>Не удалось загрузить профиль. Попробуйте обновить страницу позже.</p><Link href="/inscription">Вернуться к регистрации</Link></main>; }
   if (!account) redirect("/inscription");
-  return <Dashboard profile={dashboardProfile(account)} brand={{ logo: branding.logoImageUrl, name: branding.appButtonTitle }} />;
+  let operations: AccountOperations;
+  try { operations = await accountOperations(account._id); }
+  catch { operations = { items: [], nextCursor: null, unavailable: true }; }
+  return <Dashboard profile={dashboardProfile(account)} operations={operations} brand={{ logo: branding.logoImageUrl, name: branding.appButtonTitle }} />;
 }

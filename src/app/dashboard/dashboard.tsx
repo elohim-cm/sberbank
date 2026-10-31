@@ -5,10 +5,14 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { dashboardHref, type ProductKind } from "../test-profiles";
-import Icon, { type IconName } from "./icons";
+import Icon from "./icons";
 import styles from "./dashboard.module.css";
 import VerificationDialog from "./verification-dialog";
 import type { DashboardProfile } from "../inscription/registration-data";
+import BankCard from "./bank-card";
+import OperationHistory from "./operation-history";
+import CreditGuide from "./credit-guide";
+import type { AccountOperations } from "@/lib/account-operations";
 
 const navigation = [
   { id: "home", label: "Главная", icon: "home" },
@@ -27,21 +31,14 @@ type Fixture = DashboardProfile;
 type Money = (value: number) => string;
 type Brand = { logo: string; name: string };
 const currency = new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const transactions: { id: number; title: string; date: string; amount: number; icon: IconName }[] = [
-  { id: 1, title: "Покупка ", date: "28 октября 2026", amount: -4200, icon: "cart" },
-  { id: 2, title: "Пополнение ", date: "25 октября 2026", amount: 20000, icon: "plus" },
-  { id: 3, title: "Возврат ", date: "18 октября 2026", amount: 1500, icon: "refund" },
-  { id: 4, title: "Покупка ", date: "12 октября 2026", amount: -7350, icon: "cart" },
-];
-
-export default function Dashboard({ brand, profile }: { brand: Brand; profile: DashboardProfile }) {
+export default function Dashboard({ brand, profile, operations }: { brand: Brand; profile: DashboardProfile; operations: AccountOperations }) {
   const params = useSearchParams();
   const product = profile.product;
   const section: Section = navigation.find(item => item.id === params.get("section"))?.id ?? "home";
-  return <DashboardView key={profile.id} profile={profile} product={product} section={section} brand={brand} />;
+  return <DashboardView key={profile.id} profile={profile} operations={operations} product={product} section={section} brand={brand} />;
 }
 
-function DashboardView({ profile, product, section, brand }: { profile: Fixture; product: ProductKind; section: Section; brand: Brand }) {
+function DashboardView({ profile, product, section, brand, operations }: { profile: Fixture; product: ProductKind; section: Section; brand: Brand; operations: AccountOperations }) {
   const [hidden, setHidden] = useState(false);
   const [period, setPeriod] = useState<Period>("month");
   const [profileOpen, setProfileOpen] = useState(false);
@@ -61,6 +58,7 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
   const productTitle = product === "credit" ? "Кредитная карта" : "Виртуальная карта";
   const href = (target: Section) => dashboardHref(profile.id, product, target);
   const money: Money = value => hidden ? "•••• ₽" : currency.format(value);
+  const operationsKey = `${profile.id}:${operations.unavailable ? "unavailable" : operations.items[0]?.id ?? "empty"}`;
   const [loggingOut, setLoggingOut] = useState(false);
   const [logoutError, setLogoutError] = useState("");
 
@@ -175,15 +173,15 @@ function DashboardView({ profile, product, section, brand }: { profile: Fixture;
           </div>
           <div className={styles.lowerGrid}>
             {gate("Динамика баланса", <BalanceChart balance={verificationApproved ? profile.balance : 215000} period={period} onPeriod={setPeriod} hidden={hidden || !verificationApproved} money={lockedMoney} emptyHistory={verificationApproved} />)}
-            <TransactionList money={money} href={href("transactions")} empty />
+            <OperationHistory key={operationsKey} initial={operations} money={money} href={href("transactions")} />
           </div>
         </>}
 
         {section === "cards" && <div className={styles.singleProduct}>{card}</div>}
-        {section === "accounts" && gate("Счета", <section className={`${styles.panel} ${styles.accountPanel}`}><div className={styles.sectionIcon}><Icon name="account" /></div><div><h2>Рублёвый счёт · ••••</h2></div><strong>{lockedMoney(profile.balance)}</strong><div className={styles.accountNote}><Icon name={verificationApproved ? "shield" : "lock"} size={18} /> {verificationApproved ? "Личность подтверждена. Реквизиты счёта ещё не назначены." : "Счета доступны после подтверждения личности."}</div></section>)}
-        {section === "transactions" && <TransactionList money={money} empty />}
-        {section === "transfers" && <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="transfer" size={26} /></span><h2>Переводы пока недоступны</h2><p>{verificationApproved ? "Личность подтверждена. Сервис переводов пока недоступен." : verificationPending ? "Проверка личности в процессе. Переводы станут доступны после её одобрения." : "Для платежей и переводов необходимо подтвердить личность."}</p>{!verificationPending && !verificationApproved && <button type="button" className={styles.outlineButton} onClick={() => setOverlay("verification")}>Пройти проверку KYC</button>}</section>}
-        {section === "credit" && (product === "credit" ? <div className={styles.singleProduct}>{card}</div> : gate("Кредит", <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="credit" size={26} /></span><h2>Кредит</h2><p>Информация о кредитном продукте</p></section>))}
+        {section === "accounts" && gate("Счета", <section className={`${styles.panel} ${styles.accountPanel}`}><div className={styles.sectionIcon}><Icon name="account" /></div><div><h2>Рублёвый счёт · ••••</h2></div><strong>{lockedMoney(profile.balance)}</strong><div className={styles.accountNote}></div></section>)}
+        {section === "transactions" && <OperationHistory key={operationsKey} initial={operations} money={money} />}
+        {section === "transfers" && <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="transfer" size={26} /></span><h2>Вы ещё не совершали переводов</h2><p>{verificationApproved ? "История переводов появится здесь после первой операции." : verificationPending ? "Проверка личности в процессе. Переводы станут доступны после её одобрения." : "Для платежей и переводов необходимо подтвердить личность."}</p>{!verificationPending && !verificationApproved && <button type="button" className={styles.outlineButton} onClick={() => setOverlay("verification")}>Пройти проверку KYC</button>}</section>}
+        {section === "credit" && (verificationApproved ? <div className={styles.creditPage}>{product === "credit" && <div className={styles.singleProduct}>{card}</div>}<CreditGuide /></div> : gate("Кредит", <section className={`${styles.panel} ${styles.emptyPanel}`}><span className={styles.sectionIcon}><Icon name="credit" size={26} /></span><h2>Как устроена кредитная карта</h2><p>Кредитный лимит, льготный период и погашение задолженности.</p></section>))}
         {section === "profile" && <section className={`${styles.panel} ${styles.profilePanel}`}><h2>Мой профиль</h2><dl className={styles.profileDetails}>{[["Фамилия", profile.lastName], ["Имя", profile.firstName], ["Дата рождения", profile.birth], ["Город", profile.city], ["Адрес", profile.address], ["Электронная почта", profile.email], ["Телефон", profile.phone], ["Гражданство", profile.citizenship], ["Страна проживания", profile.residence], ["Занятость", profile.occupation], ["Ежемесячный доход", `${profile.income} ₽`]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p className={styles.accountNote}><Icon name="shield" size={18} />{verificationApproved ? "Личность подтверждена" : "Личность не подтверждена"}</p></section>}
         {section === "help" && <section className={`${styles.panel} ${styles.helpPanel}`}><h2>Помощь по личному кабинету</h2>{[
           ["Как скрыть баланс?", "Нажмите на значок глаза рядом с общим балансом или выберите «Скрыть суммы» в меню профиля."],
@@ -218,21 +216,11 @@ function KycGate({ label, pending, onVerify, children }: { label: string; pendin
 
 function CardPanel({ profile, product, money, approved = false }: { profile: Omit<Fixture, "lastDigits"> & { lastDigits: string }; product: ProductKind; money: Money; approved?: boolean }) {
   return <section className={`${styles.panel} ${styles.cardPanel}`} aria-label="Выбранная карта">
-    <div className={styles.bankCard}>
-      <h2>{product === "credit" ? "Кредитная карта" : "Виртуальная карта"}</h2>
-      <span className={styles.chip} aria-hidden="true"><i /><i /><i /><i /><i /><i /></span>
-      <Icon name="contactless" size={29} className={styles.contactless} />
-      <p>••••&nbsp; {profile.lastDigits}</p>
-    </div>
+    <BankCard product={product} lastDigits={profile.lastDigits} holder={profile.name} />
     <div className={styles.cardInfo}>
       {product === "credit" ? <><dl className={styles.creditFacts}><div><dt>Лимит</dt><dd>{money(profile.limit)}</dd></div><div><dt>Использовано</dt><dd>{money(profile.used)}</dd></div><div><dt>Доступно</dt><dd className={styles.positive}>{money(profile.limit - profile.used)}</dd></div></dl><div className={styles.payment}><span>Ближайший платёж</span><strong>{money(profile.payment)}</strong><span className={styles.dueDate}>До 15 ноября</span></div></> : <><dl className={styles.creditFacts}><div><dt>Баланс</dt><dd className={styles.positive}>{money(profile.balance)}</dd></div><div><dt>Валюта</dt><dd>Рубль · RUB</dd></div><div><dt>Тип карты</dt><dd>Виртуальная</dd></div></dl><p className={styles.virtualNote}>{approved ? "Проверка личности одобрена." : "Платежи доступны после проверки личности."}</p></>}
     </div>
   </section>;
-}
-
-function TransactionList({ money, href, empty = false }: { money: Money; href?: string; empty?: boolean }) {
-  if (empty) return <section className={`${styles.panel} ${styles.transactionPanel}`} aria-labelledby="transactions-title"><h2 id="transactions-title">История операций</h2><p className={styles.subtle}>Операций пока нет.</p></section>;
-  return <section className={`${styles.panel} ${styles.transactionPanel}`} aria-labelledby="transactions-title"><h2 id="transactions-title">Пример истории операций</h2><ul className={styles.transactions}>{transactions.map(item => <li key={item.id}><span className={`${styles.transactionIcon} ${item.amount > 0 ? styles.incoming : ""}`}><Icon name={item.icon} size={20} /></span><div className={styles.transactionDescription}><strong>{item.title}</strong><time dateTime={`2026-10-${item.id === 1 ? "28" : item.id === 2 ? "25" : item.id === 3 ? "18" : "12"}`}>{item.date}</time></div><span className={`${styles.transactionAmount} ${item.amount > 0 ? styles.positive : ""}`}>{item.amount > 0 ? "+ " : "− "}{money(Math.abs(item.amount))}</span></li>)}</ul>{href && <Link className={styles.allTransactions} href={href}>Все операции <Icon name="arrow" size={19} /></Link>}</section>;
 }
 
 function BalanceChart({ balance, period, onPeriod, hidden, money, emptyHistory = false }: { balance: number; period: Period; onPeriod: (value: Period) => void; hidden: boolean; money: Money; emptyHistory?: boolean }) {

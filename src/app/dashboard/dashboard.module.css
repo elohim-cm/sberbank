@@ -70,14 +70,6 @@
 .quickActions button:nth-child(2) svg { color: #00a247; }
 .quickActions button svg { width: 20px; height: 20px; }
 .cardPanel { display: grid; gap: 12px; padding: 10px; }
-.bankCard { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; height: 118px; padding: 14px 18px; overflow: hidden; border: 1px solid #00503f; border-radius: 10px; color: #fff; background: radial-gradient(ellipse at 0% 0%, #286b5e88, transparent 65%), linear-gradient(120deg, #075547, #004334 62%, #0b5b47); }
-.bankCard::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: linear-gradient(125deg, #fff0 10%, #ffffff05 40%, #fff0 65%); }
-.bankCard h2 { position: relative; z-index: 1; color: #fff; font-size: 13px; line-height: 20px; letter-spacing: -.15px; }
-.bankCard p { align-self: flex-end; margin: 0; color: #fff; font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: 1.5px; }
-.chip { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; width: 27px; height: 24px; border: 1px solid #ac9f61; border-radius: 5px; overflow: hidden; background: #9c8d50; }
-.chip i { display: block; background: linear-gradient(120deg, #e6d68e, #f4e6ad); }
-.chip::after { position: absolute; inset: 6px 8px; border: 1px solid #b6a870; border-radius: 2px; background: #e6d696; content: ""; }
-.contactless { position: absolute; top: 41px; right: 20px; width: 24px; height: 24px; transform: rotate(7deg); }
 .creditFacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding-inline: 2px; }
 .creditFacts > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 0 10px; border-left: 1px solid #e7edf2; }
 .creditFacts > div:first-child { border-left: 0; padding-left: 0; }
@@ -100,6 +92,18 @@
 .chart .chartValue { fill: var(--ink); font-weight: 600; }
 .gridLine { stroke: #edf2f6; stroke-width: 1; }
 .transactionPanel h2 { font-size: 17px; line-height: 25px; }
+.transactionPanel { container-type: inline-size; }
+.transactions .operationRow { display: grid; grid-template-columns: 35px minmax(0, 1fr); gap: 4px 10px; }
+.operationRow .transactionIcon { grid-row: 1 / 3; align-self: start; margin-top: 3px; }
+.operationRow .transactionDescription strong { white-space: normal; }
+.operationRow .transactionAmount { grid-column: 2; margin-left: 0; justify-self: start; white-space: normal; overflow-wrap: anywhere; }
+.operationStatus { color: #008a48; font-size: 10px; line-height: 17px; }
+.loadOperations { margin-top: 16px; }
+@container (min-width: 440px) {
+  .transactions .operationRow { grid-template-columns: 35px minmax(0, 1fr) auto; }
+  .operationRow .transactionIcon { grid-row: 1; align-self: center; margin-top: 0; }
+  .operationRow .transactionAmount { grid-column: 3; grid-row: 1; align-self: center; }
+}
 .transactions { margin: 12px 0 0; padding: 0; list-style: none; }
 .transactions li { display: flex; align-items: center; gap: 10px; min-height: 68px; padding-block: 12px; border-bottom: 1px solid #edf2f5; }
 .transactions li:last-child { border-bottom: 0; }
@@ -118,6 +122,7 @@
 .mobileNavLink.active { color: #008b43; font-weight: 600; }
 .mobileNavLink.active svg { stroke-width: 2; }
 .singleProduct { max-width: 760px; }
+.creditPage { display: grid; gap: 24px; }
 .singleProduct .cardPanel { padding: 18px; }
 .emptyPanel { display: flex; align-items: flex-start; flex-direction: column; gap: 16px; padding: 28px; }
 .emptyPanel > p { max-width: 540px; margin: 0; color: var(--muted); line-height: 1.7; }
@@ -170,7 +175,6 @@
   .balance { font-size: 42px; line-height: 56px; }
   .quickActions button { font-size: 13px !important; }
   .cardPanel { padding: 18px; }
-  .bankCard { height: 170px; padding: 20px; }
   .creditFacts { gap: 20px; }
   .creditFacts dt { font-size: 12px; }
   .creditFacts dd { font-size: 14px; }
@@ -212,11 +216,6 @@
   .quickActions { margin-top: 22px; gap: 10px; }
   .quickActions button { min-height: 76px; gap: 10px; padding: 12px 7px; font-size: 13px !important; }
   .quickActions button svg { width: 23px; height: 23px; }
-  .bankCard { height: auto; min-height: 178px; aspect-ratio: 1.586; padding: 20px; }
-  .bankCard h2 { font-size: 14px; }
-  .bankCard p { align-self: flex-start; font-size: 20px; }
-  .chip { width: 34px; height: 29px; }
-  .contactless { top: 64px; right: 23px; width: 28px; height: 28px; }
   .cardDisclosure { font-size: 10px; }
   .chartHeader h2, .transactionPanel h2 { font-size: 19px; line-height: 28px; }
   .periods button { padding: 6px 12px; min-height: 31px; font-size: 12px !important; line-height: 18px !important; }

@@ -139,6 +139,22 @@ async function main() {
     assert.equal(updatedDetail.credits.length, 4);
     const customerProfile = await request(local, "/api/account", { cookie }).then(response => response.json());
     assert.equal(customerProfile.profile.balance, 175.53);
+    assert.equal((await request(local, "/api/account/operations")).status, 401);
+    const historyResponse = await request(local, "/api/account/operations", { cookie });
+    assert.match(historyResponse.headers.get("cache-control"), /private, no-store/);
+    const history = await historyResponse.json();
+    assert.equal(history.items.length, 4);
+    assert.deepEqual(history.items.map(item => item.amountMinor).sort((a, b) => a - b), [1, 2, 2550, 5000]);
+    assert.equal(new Set(history.items.map(item => item.id)).size, 4, "Retried credits must appear once in customer history");
+    assert.deepEqual(Object.keys(history.items[0]).sort(), ["amountMinor", "confirmedAt", "currency", "id"]);
+    assert.equal(history.nextCursor, null);
+    assert.equal((await request(local, `/api/account/operations?accountId=${id}`, { cookie: created[1].cookie }).then(r => r.json())).items.length, 0, "A customer cannot select another account's history");
+    for (const cursor of ["", "bad!", "x".repeat(201), Buffer.from(JSON.stringify({ id: "invalid", date: "invalid" })).toString("base64url")]) assert.equal((await request(local, `/api/account/operations?cursor=${encodeURIComponent(cursor)}`, { cookie })).status, 400);
+    const operationsHtml = await request(local, "/dashboard?section=transactions", { cookie }).then(r => r.text());
+    assert.ok(operationsHtml.includes("Зачисление на счёт"));
+    assert.ok(!operationsHtml.includes("Операций пока нет."));
+    assert.ok(!operationsHtml.includes("ADM-"), "Internal transfer references must not be exposed in the dashboard");
+    console.log("PASS: administrator credits visible once in customer operations, empty second account, private responses and no internal metadata exposed.");
     if (process.env.ADMIN_BROWSER_TEST === "1") {
       const { checkAdminBrowser } = await import("./admin-browser.mjs");
       await checkAdminBrowser(emails[0], { credit: true });
@@ -179,6 +195,27 @@ async function main() {
     assert.equal((await db.collection("accounts").findOne({ _id: refused.id })).kycStatus, "not_started");
     assert.equal((await db.collection("email_notifications").findOne({ accountId: refused.id, "event.kind": "kyc_rejected" })).event.reason, reason);
     console.log("PASS: rejection authorization, required reason, atomic state/audit/email, concurrent retries, dashboard reason and fresh submission after rejection.");
+    const timestamp = new Date(Date.now() + 1000);
+    const paginationFixtures = Array.from({ length: 23 }, (_, index) => ({ _id: new ObjectId(), accountId: id, source: "history_integration", status: "confirmed", amountMinor: index + 100, currency: "RUB", confirmedAt: timestamp }));
+    await db.collection("incoming_transfers").insertMany([...paginationFixtures,
+      { _id: new ObjectId(), accountId: id, source: "history_integration", status: "pending", amountMinor: 999, currency: "RUB", confirmedAt: timestamp },
+      { _id: new ObjectId(), accountId: id, source: "history_integration", status: "confirmed", amountMinor: 999, currency: "USD", confirmedAt: timestamp },
+      { _id: new ObjectId(), accountId: id, source: "history_integration", status: "confirmed", amountMinor: 0.5, currency: "RUB", confirmedAt: timestamp },
+    ]);
+    const pages = [];
+    let cursor;
+    do {
+      const page = await request(local, `/api/account/operations${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cookie }).then(r => r.json());
+      assert.ok(page.items.length <= 20);
+      pages.push(...page.items);
+      cursor = page.nextCursor;
+      assert.ok(pages.length <= 28, "Pagination must terminate without duplicate rows");
+    } while (cursor);
+    const expectedCount = 23 + (process.env.ADMIN_BROWSER_TEST === "1" ? 5 : 4);
+    assert.equal(pages.length, expectedCount);
+    assert.equal(new Set(pages.map(item => item.id)).size, expectedCount);
+    assert.deepEqual(pages.slice(0, 23).map(item => item.id), paginationFixtures.map(item => item._id.toHexString()).reverse(), "Equal timestamps must use a stable ID order across page boundaries");
+    console.log("PASS: complete paginated customer history, stable ordering for equal dates, and pending/foreign-currency/fractional records excluded.");
     assert.equal((await request(production, "/sberbank/admin/api/auth", { method: "DELETE", cookie: adminSession })).headers.get("set-cookie").includes("Max-Age=0"), true);
     console.log("PASS: private photo download, complete-dossier checks, atomic approval/audit/email, concurrent retry and approved customer dashboard.");
   } finally {

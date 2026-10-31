@@ -1,0 +1,9 @@
+.card {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  aspect-ratio: 856 / 540;
+  border-radius: 3.5% / 5.6%;
+  box-shadow: 0 9px 20px -12px #102e2466, 0 1px 2px #102e2426;
+}

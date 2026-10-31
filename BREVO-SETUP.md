@@ -158,8 +158,9 @@ tentative automatique. Un rapport sans identifiants SMTP est conservé dans
 en boîte : vérifier les cinq messages chez le destinataire ou dans les logs
 transactionnels Brevo.
 
-Les modèles utilisent une mise en page HTML en tableaux de 600 px, une version
-mobile, un pré-en-tête et une alternative texte. Aucun logo distant, pixel de
+Les modèles utilisent une mise en page HTML en tableaux sur toute la largeur
+disponible, une version mobile et une alternative texte. Aucun encadré extérieur
+ni texte de pré-en-tête n'est ajouté. Aucun logo distant, pixel de
 suivi ni pièce d'identité n'est inclus. Chaque message affiche le statut de son
 événement. Les appels après réponse ciblent leur clé d'événement : une approbation
 ne vide pas une ancienne notification de création de compte. Le worker bloque

@@ -84,6 +84,14 @@ réexécute jamais le crédit. « Notification en file » ne signifie pas livrai
 effective en boîte de réception. Le dashboard client relit aussi le solde
 toutes les 30 secondes lorsque l’onglet est visible, et au retour dans l’onglet.
 
+Les crédits confirmés, y compris ceux déjà enregistrés, figurent aussi dans
+« Операции » côté client. L’accueil montre les cinq dernières opérations ;
+l’historique complet se charge par pages de 20. La route `/api/account/operations`
+utilise exclusivement le compte de la session, sans accepter de compte cible.
+Les montants, dates et statuts sont visibles ; les références internes et les
+données d’administration ne sont pas exposées. Modifier directement `balance`
+dans MongoDB ne crée pas une opération d’historique.
+
 Les routes d’administration vérifient l’accès côté serveur, y compris pour
 chaque photo. Les images et réponses contenant des données clients utilisent
 `Cache-Control: private, no-store`. Les modifications exigent aussi une origine
