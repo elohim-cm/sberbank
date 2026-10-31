@@ -56,7 +56,8 @@ try {
     assert.ok(document);
     for (const [key, value] of Object.entries(input)) assert.equal(document[key], value, `Persisted field ${key}`);
     assert.equal(document.kycStatus, "not_started");
-    assert.equal(document.balance, undefined);
+    assert.equal(document.balance, 0);
+    assert.equal(await db.collection("email_notifications").countDocuments({ accountId: document._id, "event.kind": "account_created" }), 1);
     assert.equal(result.profile.balance, 0);
     const token = cookie.slice("bank_session=".length);
     const sessionHash = createHash("sha256").update(token).digest("hex");
@@ -72,6 +73,18 @@ try {
     created.push({ cookie, profile: result.profile });
     console.log(`PASS: ${product} account - all registration fields verified directly in Atlas and reread through the authenticated API.`);
   }
+
+  // A server-side balance edit must be reflected on the next authenticated read.
+  // Only the synthetic account created above is modified.
+  await db.collection("accounts").updateOne({ _id: new ObjectId(created[0].profile.id), email: emails[0] }, { $set: { balance: 152345.67 } });
+  const updatedBalance = await request("/api/account", { cookie: created[0].cookie });
+  assert.equal((await updatedBalance.json()).profile.balance, 152345.67);
+  const untouchedBalance = await request("/api/account", { cookie: created[1].cookie });
+  assert.equal((await untouchedBalance.json()).profile.balance, 0);
+  await db.collection("accounts").updateOne({ _id: new ObjectId(created[1].profile.id), email: emails[1] }, { $unset: { balance: "" } });
+  const legacyBalance = await request("/api/account", { cookie: created[1].cookie });
+  assert.equal((await legacyBalance.json()).profile.balance, 0);
+  console.log("PASS: stored balance changes are read from Atlas; missing legacy balances default to zero; registration cannot set a balance.");
 
   const duplicate = await request("/api/accounts", { method: "POST", body: { ...sample(0, "credit"), email: emails[0].toUpperCase() } });
   assert.equal(duplicate.status, 409);
@@ -98,6 +111,7 @@ try {
   try {
     if (connected) {
       const documents = await db.collection("accounts").find({ email: { $in: emails } }, { projection: { _id: 1 } }).toArray();
+      await db.collection("email_notifications").deleteMany({ accountId: { $in: documents.map(document => document._id) } });
       await db.collection("sessions").deleteMany({ accountId: { $in: documents.map(document => document._id) } });
       await db.collection("accounts").deleteMany({ email: { $in: emails } });
       console.log("Test records removed; existing accounts untouched.");

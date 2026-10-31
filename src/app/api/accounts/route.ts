@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { emptyRegistration, validateRegistration, type RegistrationData } from "@/app/inscription/registration-data";
 import { createAccount, dashboardProfile, sessionCookie, sessionDuration } from "@/lib/server/accounts";
 import { readSmallJson, sameOrigin } from "@/lib/server/http";
+import { deliverEmailsSafely } from "@/lib/server/notifications";
+
+export const maxDuration = 60;
 
 export async function POST(request: Request) {
   if (!sameOrigin(request)) return NextResponse.json({ message: "Запрос отклонён." }, { status: 403 });
@@ -22,6 +25,7 @@ export async function POST(request: Request) {
   if (Object.keys(errors).length) return NextResponse.json({ message: "Проверьте заполненные поля.", errors }, { status: 400 });
   try {
     const { account, token } = await createAccount(data, input.product);
+    after(() => deliverEmailsSafely(account._id, `account_created:${account._id}`).then(() => undefined));
     const response = NextResponse.json({ profile: dashboardProfile(account) }, { status: 201, headers: { "Cache-Control": "no-store" } });
     response.cookies.set(sessionCookie, token, {
       httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production",

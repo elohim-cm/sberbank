@@ -7,6 +7,10 @@ export function sameOrigin(request: Request): boolean {
 
 export async function readSmallJson(request: Request, maxBytes = 16_384): Promise<unknown> {
   if (!request.headers.get("content-type")?.includes("application/json")) throw new Error("Invalid content type");
+  return JSON.parse((await readLimitedBody(request, maxBytes)).toString("utf8"));
+}
+
+export async function readLimitedBody(request: Request, maxBytes: number): Promise<Buffer> {
   if (Number(request.headers.get("content-length")) > maxBytes || !request.body) throw new Error("Invalid request size");
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
@@ -20,5 +24,5 @@ export async function readSmallJson(request: Request, maxBytes = 16_384): Promis
       chunks.push(value);
     }
   } finally { reader.releaseLock(); }
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  return Buffer.concat(chunks);
 }

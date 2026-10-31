@@ -55,4 +55,6 @@ export type DashboardProfile = {
   product: ProductKind; balance: number; limit: number; used: number; payment: number; lastDigits: string;
   firstName?: string; lastName?: string;
   citizenship?: string; residence?: string; occupation?: string; income?: string;
+  kycStatus?: "not_started" | "pending" | "approved" | "rejected";
+  kycRejectionReason?: string;
 };

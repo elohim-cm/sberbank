@@ -3,6 +3,9 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Icon from "./icons";
 import styles from "./verification-dialog.module.css";
+import SelfieCapture from "./selfie-capture";
+import { kycJsonRequest, uploadKycPhoto } from "./kyc-upload";
+import type { KycDocumentKind } from "@/lib/kyc";
 
 function Check() {
   return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
@@ -37,7 +40,7 @@ function SelfieSample({ variant }: { variant: number }) {
   </svg>;
 }
 
-type DocumentKind = "passport" | "identity" | "licence";
+type DocumentKind = KycDocumentKind;
 type Photos = { front?: File; back?: File };
 const documentKinds: { id: DocumentKind; title: string; description: string }[] = [
   { id: "passport", title: "Паспорт", description: "Гражданина Российской Федерации" },
@@ -55,7 +58,7 @@ function UploadIcon() {
   return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
-function PhotoSlot({ label, file, onChange }: { label: string; file?: File; onChange: (file: File) => void }) {
+function PhotoSlot({ label, file, onChange, disabled }: { label: string; file?: File; onChange: (file: File) => void; disabled: boolean }) {
   const [error, setError] = useState("");
   const preview = useRef<HTMLImageElement>(null);
   const inputId = useId();
@@ -70,8 +73,8 @@ function PhotoSlot({ label, file, onChange }: { label: string; file?: File; onCh
       // eslint-disable-next-line @next/next/no-img-element
       <img ref={preview} alt={label} /> : <DocumentSample variant={1} back={label === "Обратная сторона"} />}</div>
     <strong>{label}</strong>
-    <label className={styles.uploadButton} htmlFor={inputId}><UploadIcon /><span>{file ? "Заменить изображение" : "Выбрать изображение"}</span></label>
-    <input id={inputId} className={styles.srOnly} type="file" accept="image/jpeg,image/png,image/webp" aria-label={label} aria-describedby={error ? `${inputId}-error` : undefined} onChange={event => {
+    <label className={`${styles.uploadButton} ${disabled ? styles.disabledUpload : ""}`} htmlFor={inputId}><UploadIcon /><span>{file ? "Заменить изображение" : "Выбрать изображение"}</span></label>
+    <input id={inputId} className={styles.srOnly} type="file" disabled={disabled} accept="image/jpeg,image/png,image/webp" aria-label={label} aria-describedby={error ? `${inputId}-error` : undefined} onChange={event => {
       const selected = event.target.files?.[0];
       if (!selected) return;
       if (!["image/jpeg", "image/png", "image/webp"].includes(selected.type)) setError("Выберите изображение JPG, PNG или WebP.");
@@ -90,6 +93,12 @@ export default function VerificationDialog({ onClose, onComplete }: { onClose: (
   const [documentKind, setDocumentKind] = useState<DocumentKind | null>(null);
   const [photos, setPhotos] = useState<Partial<Record<DocumentKind, Photos>>>({});
   const [backwards, setBackwards] = useState(false);
+  const [selfie, setSelfie] = useState<File>();
+  const [requestId, setRequestId] = useState<string>();
+  const [submitting, setSubmitting] = useState(false);
+  const [progress, setProgress] = useState("");
+  const [uploadError, setUploadError] = useState("");
+  const inFlight = useRef(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const titleId = useId();
@@ -106,6 +115,7 @@ export default function VerificationDialog({ onClose, onComplete }: { onClose: (
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [step]);
 
   function go(next: number) {
+    setUploadError("");
     setBackwards(next < step);
     setStep(next);
     dialog.current?.scrollTo({ top: 0, behavior: "instant" });
@@ -113,23 +123,76 @@ export default function VerificationDialog({ onClose, onComplete }: { onClose: (
 
   const currentPhotos = documentKind ? photos[documentKind] ?? {} : {};
   const photosReady = !!currentPhotos.front && (documentKind === "passport" || !!currentPhotos.back);
-  function completeVerification() {
-    if (!gender || !documentKind || !photosReady) return;
-    onComplete();
-    go(3);
+  function errorMessage(error: unknown) {
+    if (error instanceof DOMException && (error.name === "TimeoutError" || error.name === "AbortError")) return "Сервер не ответил вовремя. Проверьте соединение и повторите попытку.";
+    return error instanceof TypeError ? "Нет соединения с сервером. Проверьте интернет и повторите попытку." : error instanceof Error ? error.message : "Не удалось отправить фотографии. Повторите попытку.";
+  }
+
+  async function sendDocuments() {
+    if (!gender || !documentKind || !photosReady || !currentPhotos.front || inFlight.current) return;
+    inFlight.current = true;
+    setSubmitting(true);
+    setUploadError("");
+    try {
+      setProgress("Подготавливаем заявку…");
+      const draft = await kycJsonRequest("/api/account/kyc", { documentKind, gender });
+      if (!draft.requestId) throw new Error("Не удалось создать заявку. Повторите попытку.");
+      setRequestId(draft.requestId);
+      setProgress(documentKind === "passport" ? "Отправляем страницу паспорта…" : "Отправляем лицевую сторону…");
+      const front = await uploadKycPhoto(draft.requestId, "front", currentPhotos.front);
+      if (!front.fileId) throw new Error("Не удалось подтвердить сохранение фотографии.");
+      if (documentKind !== "passport" && currentPhotos.back) {
+        setProgress("Отправляем обратную сторону…");
+        const back = await uploadKycPhoto(draft.requestId, "back", currentPhotos.back);
+        if (!back.fileId) throw new Error("Не удалось подтвердить сохранение фотографии.");
+      }
+      setSelfie(undefined);
+      go(3);
+    } catch (error) { setUploadError(errorMessage(error)); }
+    finally { inFlight.current = false; setSubmitting(false); setProgress(""); }
+  }
+
+  async function completeVerification() {
+    if (!requestId || !selfie || inFlight.current) return;
+    inFlight.current = true;
+    setSubmitting(true);
+    setUploadError("");
+    try {
+      setProgress("Отправляем селфи…");
+      const saved = await uploadKycPhoto(requestId, "selfie", selfie);
+      if (!saved.fileId) throw new Error("Не удалось подтвердить сохранение селфи.");
+      setProgress("Передаём документы на проверку…");
+      const result = await kycJsonRequest("/api/account/kyc/submit", { requestId });
+      if (result.status !== "pending") throw new Error("Не удалось подтвердить отправку заявки.");
+      onComplete();
+      go(4);
+    } catch (error) {
+      // If the submission committed but its response was lost, confirm the
+      // server state before asking the client to upload their selfie again.
+      let submitted = false;
+      try {
+        const response = await fetch("/api/account/kyc", { cache: "no-store", signal: AbortSignal.timeout(10_000) });
+        const result = await response.json();
+        submitted = response.ok && result.request?.id === requestId && result.request?.status === "pending";
+      } catch { /* Preserve the original error and allow a retry. */ }
+      if (submitted) { onComplete(); go(4); }
+      else setUploadError(errorMessage(error));
+    }
+    finally { inFlight.current = false; setSubmitting(false); setProgress(""); }
   }
   function setPhoto(side: keyof Photos, file: File) {
     if (documentKind) setPhotos(previous => ({ ...previous, [documentKind]: { ...previous[documentKind], [side]: file } }));
   }
 
-  return <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId} onCancel={event => { event.preventDefault(); onClose(); }} onClick={event => {
+  return <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId} aria-busy={submitting} onCancel={event => { event.preventDefault(); if (!inFlight.current) onClose(); }} onClick={event => {
+    if (inFlight.current) return;
     if (event.target !== event.currentTarget) return;
     const bounds = event.currentTarget.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) onClose();
   }}>
-    <header className={styles.header}><h2 id={titleId}>Проверка личности</h2><button type="button" className={styles.close} aria-label="Закрыть окно" onClick={onClose}><Icon name="close" size={28} /></button></header>
+    <header className={styles.header}><h2 id={titleId}>Проверка личности</h2><button type="button" className={styles.close} disabled={submitting} aria-label="Закрыть окно" onClick={onClose}><Icon name="close" size={28} /></button></header>
     <ol className={styles.steps} aria-label="Этапы проверки">
-      {["Пол", "Документ", "Фото", "Статус"].map((label, index) => <li key={label} className={index <= step ? styles.active : ""} aria-current={index === step ? "step" : undefined}><span className={styles.stepNumber}>{index < step ? <Check /> : `0${index + 1}`}</span><span>{label}</span></li>)}
+      {["Пол", "Документ", "Фото", "Селфи", "Статус"].map((label, index) => <li key={label} className={index <= step ? styles.active : ""} aria-current={index === step ? "step" : undefined}><span className={styles.stepNumber}>{index < step ? <Check /> : `0${index + 1}`}</span><span>{label}</span></li>)}
     </ol>
     <div key={step} className={`${styles.stage} ${backwards ? styles.backwards : ""}`}>
       {step === 0 ? <>
@@ -151,16 +214,22 @@ export default function VerificationDialog({ onClose, onComplete }: { onClose: (
       </> : step === 2 ? <>
         <div className={`${styles.intro} ${styles.centeredIntro}`}><h3 ref={heading} tabIndex={-1}>Добавьте фотографии документа</h3><p>{documentKind === "passport" ? "Загрузите четкую фотографию страницы с личными данными." : "Загрузите четкие фотографии лицевой и оборотной стороны."}<br />Все данные должны быть хорошо видны.</p></div>
         <div className={`${styles.photoSlots} ${documentKind === "passport" ? styles.singlePhoto : ""}`}>
-          <PhotoSlot label={documentKind === "passport" ? "Страница с личными данными" : "Лицевая сторона"} file={currentPhotos.front} onChange={file => setPhoto("front", file)} />
-          {documentKind !== "passport" && <PhotoSlot label="Обратная сторона" file={currentPhotos.back} onChange={file => setPhoto("back", file)} />}
+          <PhotoSlot label={documentKind === "passport" ? "Страница с личными данными" : "Лицевая сторона"} file={currentPhotos.front} onChange={file => setPhoto("front", file)} disabled={submitting} />
+          {documentKind !== "passport" && <PhotoSlot label="Обратная сторона" file={currentPhotos.back} onChange={file => setPhoto("back", file)} disabled={submitting} />}
         </div>
         <div className={styles.recipientSpace} aria-hidden="true" />
-        <div className={`${styles.actions} ${styles.spreadActions}`}><button type="button" className={styles.secondary} onClick={() => go(1)}><span aria-hidden="true">←</span> Назад</button><button type="button" className={styles.primary} disabled={!photosReady} onClick={completeVerification}>Продолжить <span aria-hidden="true">→</span></button></div>
+        <div className={`${styles.actions} ${styles.spreadActions}`}><button type="button" className={styles.secondary} disabled={submitting} onClick={() => go(1)}><span aria-hidden="true">←</span> Назад</button><button type="button" className={styles.primary} disabled={!photosReady || submitting} onClick={() => void sendDocuments()}>{submitting ? "Отправляем…" : "Продолжить"} <span aria-hidden="true">→</span></button></div>
+      </> : step === 3 ? <>
+        <div className={`${styles.intro} ${styles.centeredIntro}`}><h3 ref={heading} tabIndex={-1}>Сделайте фотографию селфи</h3><p>Посмотрите в камеру. Лицо должно быть хорошо видно.<br />Проверьте снимок перед отправкой.</p></div>
+        <SelfieCapture file={selfie} onChange={setSelfie} disabled={submitting} />
+        <div className={`${styles.actions} ${styles.spreadActions}`}><button type="button" className={styles.secondary} disabled={submitting} onClick={() => go(2)}>← Назад</button><button type="button" className={styles.primary} disabled={!selfie || submitting} onClick={() => void completeVerification()}>{submitting ? "Отправляем…" : "Отправить на проверку"}</button></div>
       </> : <>
         <div className={styles.success} aria-hidden="true"><svg viewBox="0 0 360 210" fill="none"><circle cx="180" cy="105" r="102" fill="#e9f7f1" /><circle cx="180" cy="105" r="78" fill="#d5f0e3" /><circle cx="180" cy="105" r="53" fill="#009746" /><path d="M180 76v30l20 12" stroke="white" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" /><g stroke="#6cd6a1" strokeWidth="2.5" strokeLinecap="round"><path d="m43 61 16 16m-16 70 16-16m244-79 16 16m-16 67 16 16M15 105h16m-8-8v16m302-10h16m-8-8v16" /></g></svg></div>
         <div className={styles.completeIntro}><h3 ref={heading} tabIndex={-1}>Проверка личности в ожидании</h3></div>
         <div className={`${styles.actions} ${styles.completeActions}`}><button type="button" className={styles.primary} onClick={onClose}>Вернуться в кабинет</button></div>
       </>}
     </div>
+    {progress && <p className={styles.uploadProgress} role="status">{progress}</p>}
+    {uploadError && <p className={styles.submitError} role="alert">{uploadError}</p>}
   </dialog>;
 }

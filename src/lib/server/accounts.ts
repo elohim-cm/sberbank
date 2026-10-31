@@ -5,6 +5,7 @@ import { ObjectId } from "mongodb";
 import { registrationSummary, type DashboardProfile, type RegistrationData } from "@/app/inscription/registration-data";
 import type { ProductKind } from "@/app/test-profiles";
 import { getDatabase, getMongoClient } from "./mongodb";
+import { notificationCollection, queueEmail } from "./notifications";
 
 export const sessionCookie = "bank_session";
 export const sessionDuration = 7 * 24 * 60 * 60;
@@ -13,7 +14,10 @@ export type AccountDocument = RegistrationData & {
   _id: ObjectId;
   product: ProductKind;
   createdAt: Date;
-  kycStatus: "not_started" | "pending";
+  kycStatus: "not_started" | "pending" | "approved" | "rejected";
+  kycRejectionReason?: string;
+  kycApprovedAt?: Date;
+  balance?: number; // RUB; optional only for accounts created before this field.
 };
 
 type SessionDocument = { _id: string; accountId: ObjectId; createdAt: Date; expiresAt: Date };
@@ -34,12 +38,13 @@ export async function accountCollections() {
 
 export async function createAccount(data: RegistrationData, product: ProductKind) {
   const { accounts, sessions } = await accountCollections();
+  await notificationCollection();
   const client = await getMongoClient();
   const token = randomBytes(32).toString("hex");
   const now = new Date();
   const account: AccountDocument = {
     ...data, email: data.email.toLowerCase(), product,
-    _id: new ObjectId(), createdAt: now, kycStatus: "not_started",
+    _id: new ObjectId(), createdAt: now, kycStatus: "not_started", balance: 0,
   };
   // Keep account creation and session creation together: neither is acknowledged
   // until both writes are committed by Atlas.
@@ -50,6 +55,7 @@ export async function createAccount(data: RegistrationData, product: ProductKind
         _id: tokenHash(token), accountId: account._id, createdAt: now,
         expiresAt: new Date(now.getTime() + sessionDuration * 1000),
       }, { session });
+      await queueEmail(account._id, `account_created:${account._id}`, { kind: "account_created" }, session);
     });
   });
   return { account, token };
@@ -79,6 +85,9 @@ export function dashboardProfile(account: AccountDocument): DashboardProfile {
     birth: registrationSummary(account)[2][1], city: account.city, address: account.address,
     email: account.email, phone: account.phone, citizenship: account.citizenship,
     residence: account.residence, occupation: account.occupation, income: account.income,
-    product: account.product, balance: 0, limit: 0, used: 0, payment: 0, lastDigits: "••••",
+    kycStatus: account.kycStatus,
+    kycRejectionReason: account.kycRejectionReason,
+    product: account.product, balance: typeof account.balance === "number" && Number.isFinite(account.balance) ? account.balance : 0,
+    limit: 0, used: 0, payment: 0, lastDigits: "••••",
   };
 }
